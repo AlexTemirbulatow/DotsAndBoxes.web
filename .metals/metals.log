@@ -1,0 +1,22 @@
+2023.10.22 13:35:45 INFO  Started: Metals version 1.1.0 in folders 'C:\Users\alext\dotsandboxes-main, C:\Users\alext\dotsandboxes-webapp' for client Visual Studio Code 1.83.1.
+2023.10.22 13:35:47 INFO  Attempting to connect to the build server...
+2023.10.22 13:35:47 INFO  Bloop uses C:\jdk-17.0.1 defined at C:\Users\alext\.bloop\bloop.json
+2023.10.22 13:35:47 INFO  skipping build import with status 'Installed'
+2023.10.22 13:35:48 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\alext\dotsandboxes-main\.metals\bsp.trace.json or C:\Users\alext\AppData\Local\scalameta\metals\cache\bsp.trace.json
+2023.10.22 13:35:48 INFO  Attempting to connect to the build server...
+2023.10.22 13:35:48 INFO  Bloop uses C:\jdk-17.0.1 defined at C:\Users\alext\.bloop\bloop.json
+2023.10.22 13:35:48 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\alext\dotsandboxes-main\project\.metals\bsp.trace.json or C:\Users\alext\AppData\Local\scalameta\metals\cache\bsp.trace.json
+2023.10.22 13:35:48 INFO  time: Connected to build server in 1.38s
+2023.10.22 13:35:48 INFO  Connected to Build server: Bloop v1.5.11
+2023.10.22 13:35:48 INFO  time: Imported build in 0.15s
+2023.10.22 13:35:49 ERROR Unexpected error initializing server: 
+scala.concurrent.Future$$anon$2: Future.filter predicate is not satisfied
+
+2023.10.22 13:35:52 INFO  no build target found for C:\Users\alext\dotsandboxes-webapp\build.sbt. Using presentation compiler with project's scala-library version: 3.3.1
+2023.10.22 13:35:54 INFO  time: indexed workspace in 4.86s
+2023.10.22 13:35:54 WARN  no build target for: C:\Users\alext\dotsandboxes-webapp\build.sbt
+2023.10.22 13:35:58 WARN  no build target for: C:\Users\alext\dotsandboxes-webapp\build.sbt
+Okt. 22, 2023 1:36:19 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+Okt. 22, 2023 1:36:19 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
