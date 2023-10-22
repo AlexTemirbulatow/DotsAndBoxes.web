@@ -1,5 +1,6 @@
 logs
 target
+metals.sbt
 /.bsp
 /.idea
 /.idea_modules
