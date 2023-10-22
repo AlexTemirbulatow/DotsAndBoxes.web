@@ -1,13 +1,13 @@
 logs
 target
-.vscode
-.metals
-.metals/metals.lock.db
-.metals/metals.log
 /.bsp
 /.idea
 /.idea_modules
 /.classpath
 /.project
 /.settings
+/.bloop
+/.metals
+/.cache
+/.vscode
 /RUNNING_PID
