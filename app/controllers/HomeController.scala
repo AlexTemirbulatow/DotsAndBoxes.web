@@ -4,21 +4,24 @@ import javax.inject._
 import play.api._
 import play.api.mvc._
 
-/**
- * This controller creates an `Action` to handle HTTP requests to the
- * application's home page.
- */
-@Singleton
-class HomeController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
+import de.htwg.se.dotsandboxes.controller.controllerComponent.controllerImpl.Controller
+import de.htwg.se.dotsandboxes.model.fieldComponent.fieldImpl.Move
+import de.htwg.se.dotsandboxes.Default.given_FieldInterface
+import de.htwg.se.dotsandboxes.Default.given_FileIOInterface
 
-  /**
-   * Create an Action to render an HTML page.
-   *
-   * The configuration in the `routes` file means that this method
-   * will be called when the application receives a `GET` request with
-   * a path of `/`.
-   */
-  def index() = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.index())
+
+@Singleton
+class HomeController @Inject() (cc: ControllerComponents) extends AbstractController(cc) {
+  val controller = new Controller()
+  def asText = controller.toString
+
+  def display: Action[AnyContent] = Action {
+    Ok(asText)
+  }
+
+  def move(input: String): Action[AnyContent] = Action {
+    val move: Move = Move(input(0), input(1), input(2), true)
+    controller.publish(controller.put, move)
+    Ok(asText)
   }
 }
