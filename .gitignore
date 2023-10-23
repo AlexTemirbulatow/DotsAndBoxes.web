@@ -42,7 +42,7 @@ metals.sbt
 *.json
 
 # other
-null/
+/null/
 logs
 .history
 .scala_dependencies
