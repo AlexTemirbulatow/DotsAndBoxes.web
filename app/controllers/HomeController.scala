@@ -15,26 +15,26 @@ class HomeController @Inject() (cc: ControllerComponents) extends AbstractContro
   val controller = new Controller()
   def asText = controller.toString
 
-  def about() = Action {
+  def about = Action {
     Ok(views.html.index())
   }
-
-  def display: Action[AnyContent] = Action {
+  
+  def display = Action {
     Ok(asText)
   }
 
-  def load() = Action {
+  def load = Action {
     controller.load
     Ok(asText)
   }
 
-  def undo() = Action {
-    controller.undo
+  def undo = Action {
+    controller.publish(controller.undo)
     Ok(asText)
   }
 
-  def redo() = Action {
-    controller.redo
+  def redo = Action {
+    controller.publish(controller.redo)
     Ok(asText)
   }
 
