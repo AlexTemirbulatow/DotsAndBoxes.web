@@ -1,13 +1,55 @@
+# sbt specific
+dist/*
+target/
+lib_managed/
+src_managed/
+.project
+project/boot/
+project/plugins/project/
+project/local-plugins.sbt
+.history
+.ensime
+.ensime_cache/
+.sbt-scripted/
+local.sbt
+project/project/
+project/target/
+
+# Bloop
+.bsp
+
+# VS Code
+.vscode/
+
+# Metals
+.bloop/
+.metals
+metals.sbt
+
+# IDEA
+*.log
+*.iml
+*.ipr
+*.iws
+.idea
+.idea_modules
+
+# scala 3
+.tasty
+
+# fileIO
+*.xml
+*.json
+
+# other
+/null/
 logs
-target
-/.bsp
-/.idea
-/.idea_modules
-/.classpath
-/.project
-/.settings
-/.bloop
-/.metals
-/.cache
-/.vscode
+.history
+.scala_dependencies
+.cache
+.cache-main
+.classpath
+.settings
+5_DotsAndBoxesGUI.jpg
+dotsandboxesTUI.png
 /RUNNING_PID
