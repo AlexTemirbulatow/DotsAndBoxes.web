@@ -23,7 +23,7 @@ project/target/
 
 # Metals
 .bloop/
-.metals/
+.metals
 metals.sbt
 
 # IDEA
@@ -42,6 +42,7 @@ metals.sbt
 *.json
 
 # other
+null/
 logs
 .history
 .scala_dependencies
