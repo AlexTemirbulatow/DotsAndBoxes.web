@@ -4,9 +4,14 @@
 # ~~~~
 
 # Controller for Dots And Boxes
-GET     /                           controllers.HomeController.display()
+GET     /                                controllers.HomeController.about()
+GET     /game                            controllers.HomeController.display()
+GET     /game/load                       controllers.HomeController.load()
+GET     /game/undo                       controllers.HomeController.undo()
+GET     /game/redo                       controllers.HomeController.redo()
 
-POST    /move/:input                controllers.HomeController.move(input: String)
++ nocsrf
+POST    /game/move/:input                controllers.HomeController.move(input: String)
 
 
 # Map static resources from the /public folder to the /assets URL path
