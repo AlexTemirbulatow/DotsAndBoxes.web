@@ -23,13 +23,6 @@ class HomeController @Inject() (cc: ControllerComponents) extends AbstractContro
     Ok(asText)
   }
 
-  def move(i: String): Action[AnyContent] = Action {
-    val input = "100"
-    val move: Move = Move(input(0), input(1), input(2), true)
-    controller.publish(controller.put, move)
-    Ok(asText)
-  }
-
   def load() = Action {
     controller.load
     Ok(asText)
@@ -42,6 +35,12 @@ class HomeController @Inject() (cc: ControllerComponents) extends AbstractContro
 
   def redo() = Action {
     controller.redo
+    Ok(asText)
+  }
+
+  def move(input: String): Action[AnyContent] = Action {
+    val move: Move = Move(input(0), input(1), input(2), true)
+    controller.publish(controller.put, move)
     Ok(asText)
   }
 }
