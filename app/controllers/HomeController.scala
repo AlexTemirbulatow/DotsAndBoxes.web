@@ -39,7 +39,8 @@ class HomeController @Inject() (cc: ControllerComponents) extends AbstractContro
   }
 
   def move(input: String): Action[AnyContent] = Action {
-    val move: Move = Move(input(0), input(1), input(2), true)
+    val chars = input.toCharArray
+    val move: Move = Move(chars(0).toString.toInt, chars(1).toString.toInt, chars(2).toString.toInt, true)
     controller.publish(controller.put, move)
     Ok(asText)
   }

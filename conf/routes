@@ -10,8 +10,7 @@ GET     /game/load                       controllers.HomeController.load()
 GET     /game/undo                       controllers.HomeController.undo()
 GET     /game/redo                       controllers.HomeController.redo()
 
-+ nocsrf
-POST    /game/move/:input                controllers.HomeController.move(input: String)
+GET     /game/move/:input                controllers.HomeController.move(input: String)
 
 
 # Map static resources from the /public folder to the /assets URL path
