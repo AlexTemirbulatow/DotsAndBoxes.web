@@ -13,4 +13,4 @@ POST     /game/move/redo                  controllers.HomeController.redo
 POST     /game/move/:input                controllers.HomeController.move(input: String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET      /assets/*file                    controllers.Assets.versioned(path="/public", file: Asset)
