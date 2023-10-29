@@ -1,5 +1,53 @@
-@(matrix: de.htwg.se.dotsandboxs.model.matrixComponent.matrixImpl.Matrix)
+@(controller: de.htwg.se.dotsandboxes.controller.controllerComponent.ControllerInterface)
 
-<table>
-  @for()
-</table>
+@colSizeX = @{controller.colSize(1, 0)}
+@rowSizeY = @{controller.rowSize(2)}
+
+@main("DotsAndBoxes") {
+
+  <div class="header-div">
+
+    <div class="playerTurn">
+      <div class="playerTurnImg-div">
+        <div class="playerTurnImg">
+          <img src="@routes.Assets.versioned("images/3_PlayerBlue.png")" width="70" height="70" alt="dot img">
+        </div>
+      </div>
+      <div class="playerTurnPoints">
+        <h1>Turn [points: 0]</h1>
+      </div>
+      
+      
+    </div>
+
+    <div class="img-div">
+      
+
+      @for(row <- 0 until rowSizeY) {
+        @for(col <- 0 until colSizeX) {
+          <img src="@routes.Assets.versioned("images/0_Dot.png")" width="30" height="30" alt="dot img">
+          <img src="@routes.Assets.versioned("images/1_BarUntaken.png")" width="70" height="40" alt="dot img">
+        }
+
+        <img src="@routes.Assets.versioned("images/0_Dot.png")" width="30" height="30" alt="dot img">
+
+        @for(v <- 0 to colSizeX) {
+          <img src="@routes.Assets.versioned("images/1_ColUntaken.png")" width="70" height="40" alt="dot img">
+          @if(v != colSizeX) {
+            <img src="@routes.Assets.versioned("images/2_TakenBlue.png")" width="90" height="90" alt="dot img">
+          }
+        }
+      }
+
+      @for(c <- 0 until colSizeX) {
+        <img src="@routes.Assets.versioned("images/0_Dot.png")" width="30" height="30" alt="dot img">
+        <img src="@routes.Assets.versioned("images/1_BarUntaken.png")" width="70" height="40" alt="dot img">
+      }
+      <img src="@routes.Assets.versioned("images/0_Dot.png")" width="30" height="30" alt="dot img">
+    </div>
+    <div>
+      Scoreboard
+    </div>
+
+  </div>
+}

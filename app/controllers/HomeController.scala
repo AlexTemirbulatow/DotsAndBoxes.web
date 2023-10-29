@@ -49,4 +49,8 @@ class HomeController @Inject() (cc: ControllerComponents) extends AbstractContro
     controller.publish(controller.put, move)
     Ok(getField)
   }
+
+  def displayGame() = Action {
+    Ok(views.html.field(controller))
+  }
 }

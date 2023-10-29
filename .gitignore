@@ -50,6 +50,6 @@ logs
 .cache-main
 .classpath
 .settings
-5_DotsAndBoxesGUI.jpg
-dotsandboxesTUI.png
+*.jpg
+*.png
 /RUNNING_PID
