@@ -1,5 +1,75 @@
 @()
 
-@main("Welcome to Play") {
-  <h1>Welcome to Play!</h1>
+@main("Usage And Rules") {
+  <h1>Welcome to</h1>
+  <pre>
+   _____        _                            _   ____                     
+  |  __ \      | |           /\             | | |  _ \                    
+  | |  | | ___ | |_ ___     /  \   _ __   __| | | |_) | _____  _____  ___ 
+  | |  | |/ _ \| __/ __|   / /\ \ | '_ \ / _` | |  _ < / _ \ \/ / _ \/ __|
+  | |__| | (_) | |_\__ \  / ____ \| | | | (_| | | |_) | (_) >  <  __/\__ \
+  |_____/ \___/ \__|___/ /_/    \_\_| |_|\__,_| |____/ \___/_/\_\___||___/
+               
+  
+
+
+  </pre>
+  <h2>Usage And Rules</h2>
+  <table border="1" style="margin: 0 auto;">
+    <tr>
+        <td>RULES</td>
+        <td>TUI</td>
+    </tr>
+    <tr>
+        <td>
+          You move by taking a horizontal or vertical line <br>
+          between two dots. When you place the last line that <br>
+          forms a box, the box and its content are yours. The <br>
+          players move in turn, but whenever a player takes a <br>
+          box, they must move again. One box is one point. <br><br>
+          
+          The game ends when all boxes have been taken. <br><br>
+          
+          The player with the highest score wins. <br>
+          It's a tie if two players got the same highest score. <br><br>
+          
+          The UIs support 2-4 players, a customizable field <br>
+          size and a GUI only light and dark mode. <br>
+        </td>
+        <td>
+          <img src="https://raw.githubusercontent.com/AlexTemirbulatow/de.htwg.se.DotsAndBoxes/developer/src/resources/5_DotsAndBoxesTUI.png" 
+          width="350" height="300" alt="TUI Bild">
+        </td>
+    </tr>
+    <tr>
+        <td>USAGE</td>
+        <td>GUI</td>
+    </tr>
+    <tr>
+      <td>
+        The field consists of two separate 2D vectors: <br>
+        The first vector represents all horizontal lines <br>
+        The second vector represents all vertical lines <br><br>
+
+        Access in a move: <br>
+        The horizontal vector can be accessed with (1) <br>
+        The vertical vector can be accessed with (2) <br>
+        Lines within a vector are accessed with <br>
+        X and Y coordinates, starting at (0,0) <br>
+        Therefore, a move to occupy a line consists of: <br><br>
+
+        &lt;Line&gt;&lt;X&gt;&lt;Y&gt; <br><br>
+        
+        You can type (q) to quit, (z) to undo, (y) to redo, <br>
+        (s) to save the current game state and (l) to load it. <br>
+      </td>
+      <td>
+        <img src="https://raw.githubusercontent.com/AlexTemirbulatow/de.htwg.se.DotsAndBoxes/developer/src/resources/5_DotsAndBoxesGUI_Dark.jpg"
+        width="350" height="300" alt="GUI Bild">
+      </td>
+  </tr>
+</table>
+<br><br><br>
+<a href="http://localhost:9000/game">Play</a>
+<br><br><br><br>
 }
