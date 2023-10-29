@@ -50,6 +50,4 @@ logs
 .cache-main
 .classpath
 .settings
-*.jpg
-*.png
 /RUNNING_PID
