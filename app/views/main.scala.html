@@ -68,33 +68,73 @@
                 background-color: #5f5f5f;
                 display: flex;
                 padding-top: 30px;
-                padding-bottom: 30px;
+                padding-bottom: 10px;
                 background: none;
             }
             .playerTurnImg-div {
-                background-color: #5f5f5f;
                 flex: 1;
                 background: none;
             }
             .playerTurnImg {
-                background-color: #5f5f5f;
                 margin-left: 150px;
                 background: none;
             }
             .playerTurnPoints {
-                background-color: #5f5f5f;
                 flex: 1;
                 text-align: left;
                 margin-right: 130px;
                 font-family: "Comic Sans MS", cursive;
                 background: none;
             }
-            .img-div {
+            .playerWonImg-div {
+                flex: 1;
+                background: none;
+            }
+            .playerWonImg {
+                margin-left: 250px;
+                background: none;
+            }
+            .playerWonPoints {
+                flex: 1;
+                text-align: left;
+                font-family: "Comic Sans MS", cursive;
+                background: none;
+            }
+            .gameboard {
                 display: grid;
                 grid-template-columns: repeat(11, 1fr);
                 grid-gap: 10px;
-                background-color: #5f5f5f;
-                background: none;
+                border-style: solid;
+                border-width: 5px;
+                border-color: #d4d4d415;
+                background-color: rgba(135, 135, 135, 0.111);
+                border-radius: 10px;
+                padding-top: 20px;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            .scoreboard {
+                padding-top: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: right;
+            }
+            .player {
+                background-color: rgba(101, 101, 101, 0.274);
+                border-radius: 10px;
+                border-style: solid;
+                border-width: 2px;
+                border-color: #d4d4d415;
+                padding-right: 15px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                margin: 0 40px;
+                font-family: "Comic Sans MS", cursive;
+            }
+            .player img {
+                margin-right: 25px;
             }
             
         </style>

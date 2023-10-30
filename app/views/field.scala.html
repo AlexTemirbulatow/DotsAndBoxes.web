@@ -8,45 +8,91 @@
   <div class="header-div">
 
     <div class="playerTurn">
-      <div class="playerTurnImg-div">
-        <div class="playerTurnImg">
-          <img src="@routes.Assets.versioned("images/3_PlayerBlue.png")" width="70" height="70" alt="dot img">
+      @if(!controller.gameEnded) {
+        <div class="playerTurnImg-div">
+          <div class="playerTurnImg">
+            @controller.currentPlayer.toString match {
+              case "Blue" => {<img src="@routes.Assets.versioned("images/3_PlayerBlue.png")" width="70" height="70" alt="dot img">}
+              case "Red" => {<img src="@routes.Assets.versioned("images/3_PlayerRed.png")" width="70" height="70" alt="dot img">}
+              case "Green" => {<img src="@routes.Assets.versioned("images/3_PlayerGreen.png")" width="70" height="70" alt="dot img">}
+              case "Yellow" => {<img src="@routes.Assets.versioned("images/3_PlayerYellow.png")" width="70" height="70" alt="dot img">}
+            }
+          </div>
         </div>
-      </div>
-      <div class="playerTurnPoints">
-        <h1>Turn [points: 0]</h1>
-      </div>
-      
-      
+        <div class="playerTurnPoints">
+          <h1>Turn [points: @controller.currentPoints]</h1>
+        </div>
+      } else {
+        <div class="playerWonImg-div">
+          <div class="playerWonImg">
+            @controller.winner.substring(7) match {
+              case "Blue wins!" => {<img src="@routes.Assets.versioned("images/3_PlayerBlue.png")" width="70" height="70" alt="dot img">}
+              case "Red wins!" => {<img src="@routes.Assets.versioned("images/3_PlayerRed.png")" width="70" height="70" alt="dot img">}
+              case "Green wins!" => {<img src="@routes.Assets.versioned("images/3_PlayerGreen.png")" width="70" height="70" alt="dot img">}
+              case "Yellow wins!" => {<img src="@routes.Assets.versioned("images/3_PlayerYellow.png")" width="70" height="70" alt="dot img">}
+              case _ => {<h1>It's a draw!</h1>}
+            }
+          </div>
+        </div>
+        <div class="playerWonPoints">
+          <h1>wins!</h1>
+        </div>
+      }
     </div>
 
-    <div class="img-div">
+    <div class="gameboard">
       
 
       @for(row <- 0 until rowSizeY) {
         @for(col <- 0 until colSizeX) {
           <img src="@routes.Assets.versioned("images/0_Dot.png")" width="30" height="30" alt="dot img">
-          <img src="@routes.Assets.versioned("images/1_BarUntaken.png")" width="70" height="40" alt="dot img">
+          @if(controller.get(1, row, col).toString.toBoolean) {
+            <img src="@routes.Assets.versioned("images/1_BarTaken.png")" width="70" height="40" alt="dot img">
+          }else {
+            <img src="@routes.Assets.versioned("images/1_BarUntaken.png")" width="70" height="40" alt="dot img">
+          }
         }
-
         <img src="@routes.Assets.versioned("images/0_Dot.png")" width="30" height="30" alt="dot img">
 
-        @for(v <- 0 to colSizeX) {
-          <img src="@routes.Assets.versioned("images/1_ColUntaken.png")" width="70" height="40" alt="dot img">
-          @if(v != colSizeX) {
-            <img src="@routes.Assets.versioned("images/2_TakenBlue.png")" width="90" height="90" alt="dot img">
+        @for(col <- 0 to colSizeX) {
+          @if(controller.get(2, row, col).toString.toBoolean) {
+            <img src="@routes.Assets.versioned("images/1_ColTaken.png")" width="3" alt="dot img">
+          } else {
+            <img src="@routes.Assets.versioned("images/1_ColUntaken.png")" width="50" alt="dot img">
+          }
+          @if(col != colSizeX) {
+            @controller.get(0, row, col).toString match {
+              case "-" => {<img src="@routes.Assets.versioned("images/2_1TakenEmpty.png")" width="100" height="100" alt="dot img">}
+              case "B" => {<img src="@routes.Assets.versioned("images/2_TakenBlue.png")" width="100" height="100" alt="dot img">}
+              case "R" => {<img src="@routes.Assets.versioned("images/2_TakenRed.png")" width="100" height="100" alt="dot img">}
+              case "G" => {<img src="@routes.Assets.versioned("images/2_TakenGreen.png")" width="100" height="100" alt="dot img">}
+              case "Y" => {<img src="@routes.Assets.versioned("images/2_TakenYellow.png")" width="100" height="100" alt="dot img">}
+            }
           }
         }
       }
 
-      @for(c <- 0 until colSizeX) {
+      @for(col <- 0 until colSizeX) {
         <img src="@routes.Assets.versioned("images/0_Dot.png")" width="30" height="30" alt="dot img">
-        <img src="@routes.Assets.versioned("images/1_BarUntaken.png")" width="70" height="40" alt="dot img">
-      }
+        @if(controller.get(1, rowSizeY, col).toString.toBoolean) {
+          <img src="@routes.Assets.versioned("images/1_BarTaken.png")" width="70" height="40" alt="dot img">
+        }else {
+          <img src="@routes.Assets.versioned("images/1_BarUntaken.png")" width="70" height="40" alt="dot img">
+        }      }
       <img src="@routes.Assets.versioned("images/0_Dot.png")" width="30" height="30" alt="dot img">
     </div>
-    <div>
-      Scoreboard
+    <div class="scoreboard">
+      @for(player <- 0 until controller.playerList.size) {
+        <div class="player">
+        @controller.playerList(player).playerId match {
+          case "Blue" => {<img src="@routes.Assets.versioned("images/4_StatsBlue.png")" width="45" height="45" alt="dot img">}
+          case "Red" => {<img src="@routes.Assets.versioned("images/4_StatsRed.png")" width="45" height="45" alt="dot img">}
+          case "Green" => {<img src="@routes.Assets.versioned("images/4_StatsGreen.png")" width="45" height="45" alt="dot img">}
+          case "Yellow" => {<img src="@routes.Assets.versioned("images/4_StatsYellow.png")" width="45" height="45" alt="dot img">}
+        }
+        <h2>@controller.playerList(player).points</h2>
+        </div>
+      }
     </div>
 
   </div>
