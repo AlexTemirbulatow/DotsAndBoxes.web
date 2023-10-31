@@ -1,0 +1,125 @@
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif, Arial, sans-serif;
+    text-align: center;
+    color: #d8d8d8;
+    background-image: url('../images/retroBackground.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+table {
+    width: 50%;
+    margin: 20px;
+    border: none;
+}
+
+th, td {
+    border: 2px solid #5f5f5f66;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    font-family: "Comic Sans MS", cursive;
+    font-size: 18px;
+}
+
+tr:nth-child(odd) {
+    background-color: #3535354d;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+a {
+    border: 10px solid #8f34d97d;
+    border-radius: 10px;
+    color: rgba(182, 182, 182, 0.448);
+    padding: 8px;
+    text-decoration: none;
+    font-size: 90px;
+}
+
+a:visited {
+    color: rgb(228, 228, 228);
+}
+a:hover {
+    color: #d8d8d8;
+    border: 10px solid #8f34d9c6;
+}
+
+#header-div {
+    background: none;
+    padding-left: 500px;
+    padding-right: 500px;
+    padding-bottom: 50px;
+}
+
+.playerTurn {
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.playerTurnImg {
+    background: none;
+    font-family: "Comic Sans MS", cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: right;
+    grid-gap: 15px;
+}
+.playerWonImg {
+    background: none;
+    font-family: "Comic Sans MS", cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: right;
+    grid-gap: 15px;
+}
+
+#gameboard {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    border-style: solid;
+    border-width: 5px;
+    border-color: #d4d4d415;
+    background-color: rgba(135, 135, 135, 0.111);
+    border-radius: 10px;
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#scoreboard {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: right;
+}
+.player {
+    background-color: rgba(101, 101, 101, 0.274);
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #d4d4d415;
+    border-left: 0px;
+    padding-right: 15px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    margin: 0 40px;
+    font-family: "Comic Sans MS", cursive;
+}
+.player img {
+    margin-right: 25px;
+    height: 50px;
+}
