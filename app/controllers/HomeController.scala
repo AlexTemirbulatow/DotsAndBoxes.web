@@ -19,6 +19,17 @@ class HomeController @Inject() (cc: ControllerComponents) extends AbstractContro
     Ok(views.html.index())
   }
 
+  def move(input: String): Action[AnyContent] = Action {
+  val chars = input.toCharArray
+  val move: Move = Move(chars(0).toString.toInt, chars(1).toString.toInt, chars(2).toString.toInt, true)
+  controller.publish(controller.put, move)
+  Ok(views.html.field(controller))
+  }
+
+  def displayGame = Action {
+    Ok(views.html.field(controller))
+  }
+
   def tui = Action {
     Ok(getField)
   }
@@ -40,17 +51,6 @@ class HomeController @Inject() (cc: ControllerComponents) extends AbstractContro
 
   def redo = Action {
     controller.publish(controller.redo)
-    Ok(views.html.field(controller))
-  }
-
-  def move(input: String): Action[AnyContent] = Action {
-    val chars = input.toCharArray
-    val move: Move = Move(chars(0).toString.toInt, chars(1).toString.toInt, chars(2).toString.toInt, true)
-    controller.publish(controller.put, move)
-    Ok(views.html.field(controller))
-  }
-
-  def displayGame = Action {
     Ok(views.html.field(controller))
   }
 }
