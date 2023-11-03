@@ -23,27 +23,24 @@
 
     <div class="playerTurn">
       @if(!controller.gameEnded) {
-
-          <div class="playerTurnImg">
-            @controller.currentPlayer match {
-              case "Blue" => {@playerBlue}
-              case "Red" => {@playerRed}
-              case "Green" => {@playerGreen}
-              case "Yellow" => {@playerYellow}}
-            <h1>Turn</h1>
-          </div>
-
+        <div class="playerTurnImg">
+          @controller.currentPlayer match {
+            case "Blue" => {@playerBlue}
+            case "Red" => {@playerRed}
+            case "Green" => {@playerGreen}
+            case "Yellow" => {@playerYellow}}
+          <h1>Turn</h1>
+        </div>
       } else {
-
-          <div class="playerWonImg">
-            @controller.winner.substring(7) match {
-              case "Blue wins!" => {@playerBlue}
-              case "Red wins!" => {@playerRed}
-              case "Green wins!" => {@playerGreen>}
-              case "Yellow wins!" => {@playerYellow}
-              case _ => {<h1>It's a draw!</h1>}}
-            <h1>wins!</h1>
-          </div>
+        <div class="playerWonImg">
+          @controller.winner.substring(7) match {
+            case "Blue wins!" => {@playerBlue}
+            case "Red wins!" => {@playerRed}
+            case "Green wins!" => {@playerGreen>}
+            case "Yellow wins!" => {@playerYellow}
+            case _ => {<h1>It's a draw!</h1>}}
+          <h1>wins!</h1>
+        </div>
       }
     </div>
 
