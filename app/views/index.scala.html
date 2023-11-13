@@ -1,19 +1,31 @@
 @()
 
 @main("Usage And Rules") {
-  <h1>Welcome to</h1>
-  <pre>
-   _____        _                            _   ____                     
-  |  __ \      | |           /\             | | |  _ \                    
-  | |  | | ___ | |_ ___     /  \   _ __   __| | | |_) | _____  _____  ___ 
-  | |  | |/ _ \| __/ __|   / /\ \ | '_ \ / _` | |  _ < / _ \ \/ / _ \/ __|
-  | |__| | (_) | |_\__ \  / ____ \| | | | (_| | | |_) | (_) >  <  __/\__ \
-  |_____/ \___/ \__|___/ /_/    \_\_| |_|\__,_| |____/ \___/_/\_\___||___/
-               
+
+  <main>
+    <section
+      class="w-100 vh-100 d-flex flex-column
+      justify-content-center align-items-center text-white fs-1">
+      <h1 style="font-size: 1em">Welcome to</h1>
+      <h1 style="font-size: 1.7em">Dots And Boxes</h1>
+      <div style="margin-bottom: 50px;"></div>
+      <img src="@routes.Assets.versioned("images/dotsandboxesGUI.jpg")"
+        width="350" height="300" alt="GUI Bild">
+      <div style="margin-bottom: 20px;"></div>
+
+      <div style="margin-bottom: 50px;"></div>
+      <p class="d-grid col-2 mx-auto">
+        <a href="http://localhost:9000/game" class="btn btn-secondary" role="button" data-bs-toggle="button">PLAY NOW</a>
+      </p>
+    </section>
+    
+  </main>
+
   
 
 
-  </pre>
+
+<!--
   <h2>Usage And Rules</h2>
   <table border="1" style="margin: 0 auto;">
     <tr>
@@ -71,4 +83,4 @@
 <br><br><br>
 <a href="http://localhost:9000/game">Play</a>
 <br><br><br><br>
-}
+} --> 
