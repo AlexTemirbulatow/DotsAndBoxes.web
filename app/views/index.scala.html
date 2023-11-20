@@ -1,86 +1,152 @@
-@()
-
 @main("Usage And Rules") {
 
   <main>
-    <section
-      class="w-100 vh-100 d-flex flex-column
-      justify-content-center align-items-center text-white fs-1">
-      <h1 style="font-size: 1em">Welcome to</h1>
-      <h1 style="font-size: 1.7em">Dots And Boxes</h1>
-      <div style="margin-bottom: 50px;"></div>
-      <img src="@routes.Assets.versioned("images/dotsandboxesGUI.jpg")"
-        width="350" height="300" alt="GUI Bild">
-      <div style="margin-bottom: 20px;"></div>
+    <section class="header bg-dark text-light text-center text-sm-start">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+        <a class="navbar-brand fs-4 my-2" href="http://localhost:9000">
+            <img src="@routes.Assets.versioned("images/0_Logo.png")" width="13%" alt="Logo">
+            <span class="logo">Dots And Boxes</span>
+        </a>
+        <button 
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Sidebar -->
+        <div class="sidebar offcanvas offcanvas-start"
+            tabindex="-1"
+            id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel">
+            <!-- Sidebar Header -->
+            <div class="offcanvas-header text-white border-bottom">
+            <h5 class="offcanvas-title"
+            id="offcanvasNavbarLabel">Menu</h5>
+            <button
+                type="button"
+                class="btn-close btn-close-white shodow-none"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close">
+            </button>
+            </div>
+            <!-- Sidebar Body -->
+            <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
+            <ul class="navbar-nav justify-content-center
+            align-items-center fs-5 flex-grow-1 pe-3">
 
-      <div style="margin-bottom: 50px;"></div>
-      <p class="d-grid col-2 mx-auto">
-        <a href="http://localhost:9000/game" class="btn btn-secondary" role="button" data-bs-toggle="button">PLAY NOW</a>
-      </p>
+                <li class="nav-item mx-2">
+                <a class="nav-link" href="http://localhost:9000">Home</a>
+                </li>
+                <li class="nav-item mx-2">
+                <a class="nav-link" href="http://localhost:9000/game">Game</a>
+                </li>
+                <li class="nav-item mx-2">
+                <a class="nav-link" href="#HowToPlay">How To Play</a>
+                </li>
+                <li class="nav-item mx-2">
+                  <a class="nav-link" href="#github">GitHub</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+        </div>
+      </nav>
+
+      <div class="container">
+        <div class="d-flex py-4 text-center justify-content-center">
+          <div>
+            <h1 class="dab"><span class="mini lead my-1">Minigame</span><br>Dots And Boxes</h1>
+            <div class="text">
+              <p class="lead my-4 mx-2">Dots and Boxes has classically been played on paper
+                using pencils. <br> It was first described by a French 
+                mathematician, Édouard Lucas,<br> in the 19th century.
+                Mr. Lucas called it La Pipopipette.
+              </p>
+            </div>
+            <a href="http://localhost:9000/game" class="btn btn-primary btn-lg my-4" role="button">Play Now</a>
+          </div>
+        </div>
+      </div>
     </section>
-    
+
+
+    <section id="HowToPlay" class="pt-5">
+      <div class="d-flex justify-content-center">
+        <h1>How To Play</h1>
+      </div>
+      <div class="container mt-4">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-md">
+            <img class="img-fluid w-75"
+            src="@routes.Assets.versioned("images/rulesEg.png")"
+            alt="GUI Bild">
+          </div>
+          <div class="col-md mt-4">
+            <h2 class="navbar-nav">Rules</h2>
+            <p class="lead text-white">
+              You move by taking a horizontal or vertical line
+              between two dots. When you place the last line that
+              forms a box, the box and its content are yours. The
+              players move in turn, but whenever a player takes a
+              box, they must move again. One box is one point.
+
+              The game ends when all boxes have been taken.
+
+              The player with the highest score wins.
+              It's a tie if two players got the same highest score.
+
+              2-4 player mode.
+            </p>
+            <h2 class="navbar-nav">Strategy</h2>
+            <p class="lead text-white">
+              Most novice players always claim a box if they can, 
+              but expert players take time to consider double crossing 
+              their opponent. A double cross is when you give a short 
+              chain of boxes to your opponent and then leave them with 
+              no choice but to create a long chain for you on the next 
+              turn. It is the key to winning!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="github" class="p-5">
+      <div class="container">
+        <h1 class="mt-3 text-center">Open Source</h1>
+        <div class="row align-items-center justify-content-between">
+          <div class="col-md">
+            <img class="img-fluid w-50"
+            src="@routes.Assets.versioned("images/githubLogo.png")"
+            alt="GitHub Logo">
+          </div>
+          <div class="col-md p-5">
+            <h2 class="mini lead mb-2">Get Your Own Version On GitHub</h2>
+            <p class="lead text-white">Lorem, ipsum dolor sit amet consectetur 
+              adipisicing elit. Earum magnam illum alias veritatis cum asperiores 
+              vero possimus, quam repellat unde incidunt velit est ad fugit vitae 
+              atque aspernatur dignissimos! Ratione.
+            </p>
+            <a href="https://github.com/AlexTemirbulatow/de.htwg.se.DotsAndBoxes" class="btn btn-light mt-3">
+              <i class="bi bi-chevron-right"></i> Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="header p-5 bg-dark text-white text-center position-relative">
+      <div class="container">
+        <p class="lead">Copyright &copy; 2023 DotsAndBoxes</p>
+        <a href="#" class="position-absolute bottom-0 end-0 p-5 text-white">
+          <i class="bi bi-arrow-up-circle h1"></i>
+        </a>
+      </div>
+    </footer>
   </main>
-
-  
-
-
-
-<!--
-  <h2>Usage And Rules</h2>
-  <table border="1" style="margin: 0 auto;">
-    <tr>
-        <td>RULES</td>
-        <td>TUI</td>
-    </tr>
-    <tr>
-        <td>
-          You move by taking a horizontal or vertical line <br>
-          between two dots. When you place the last line that <br>
-          forms a box, the box and its content are yours. The <br>
-          players move in turn, but whenever a player takes a <br>
-          box, they must move again. One box is one point. <br><br>
-          
-          The game ends when all boxes have been taken. <br><br>
-          
-          The player with the highest score wins. <br>
-          It's a tie if two players got the same highest score. <br><br>
-          
-          The UIs support 2-4 players, a customizable field <br>
-          size and a GUI only light and dark mode. <br>
-        </td>
-        <td>
-          <img src="@routes.Assets.versioned("images/dotsandboxesTUI.png")" width="350" height="300" alt="TUI Bild">
-        </td>
-    </tr>
-    <tr>
-        <td>USAGE</td>
-        <td>GUI</td>
-    </tr>
-    <tr>
-      <td>
-        The field consists of two separate 2D vectors: <br>
-        The first vector represents all horizontal lines <br>
-        The second vector represents all vertical lines <br><br>
-
-        Access in a move: <br>
-        The horizontal vector can be accessed with (1) <br>
-        The vertical vector can be accessed with (2) <br>
-        Lines within a vector are accessed with <br>
-        X and Y coordinates, starting at (0,0) <br>
-        Therefore, a move to occupy a line consists of: <br><br>
-
-        &lt;Line&gt;&lt;X&gt;&lt;Y&gt; <br><br>
-        
-        You can type (q) to quit, (z) to undo, (y) to redo, <br>
-        (s) to save the current game state and (l) to load it. <br>
-      </td>
-      <td>
-        <img src="@routes.Assets.versioned("images/dotsandboxesGUI.jpg")"
-        width="350" height="300" alt="GUI Bild">
-      </td>
-  </tr>
-</table>
-<br><br><br>
-<a href="http://localhost:9000/game">Play</a>
-<br><br><br><br>
-} --> 
+}
