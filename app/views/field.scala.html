@@ -4,14 +4,6 @@
 @colSizeX = @{controller.colSize(1, 0)}
 @rowSizeY = @{controller.rowSize(2)}
 
-@dot = {<img src="@routes.Assets.versioned("images/0_Dot.png")" width="30" height="30">}
-@empty = {<img src="@routes.Assets.versioned("images/2_1TakenEmpty.png")" width="70" height="40">}
-@barTaken = {<img src="@routes.Assets.versioned("images/1_BarTaken.png")" width="70" height="40">}
-@colTaken = {<img src="@routes.Assets.versioned("images/1_ColTaken.png")" width="3">}
-@takenBlue = {<img src="@routes.Assets.versioned("images/2_TakenBlue.png")" width="100" height="100">}
-@takenRed = {<img src="@routes.Assets.versioned("images/2_TakenRed.png")" width="100" height="100">}
-@takenGreen = {<img src="@routes.Assets.versioned("images/2_TakenGreen.png")" width="100" height="100">}
-@takenYellow = {<img src="@routes.Assets.versioned("images/2_TakenYellow.png")" width="100" height="100">}
 @playerBlue = {<img src="@routes.Assets.versioned("images/3_PlayerBlue.png")">}
 @playerRed = {<img src="@routes.Assets.versioned("images/3_PlayerRed.png")">}
 @playerGreen = {<img src="@routes.Assets.versioned("images/3_PlayerGreen.png")">}
@@ -19,72 +11,134 @@
 
 
 @main("DotsAndBoxes") {
-  <div id="header-div">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+    <a class="navbar-brand fs-4 my-2" href="http://localhost:9000">
+        <img src="@routes.Assets.versioned("images/0_Logo.png")" width="13%" alt="Logo">
+        <span class="logo">Dots And Boxes</span>
+    </a>
+    <button 
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasNavbar"
+        aria-controls="offcanvasNavbar"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Sidebar -->
+    <div class="sidebar offcanvas offcanvas-start"
+        tabindex="-1"
+        id="offcanvasNavbar"
+        aria-labelledby="offcanvasNavbarLabel">
+        <!-- Sidebar Header -->
+        <div class="offcanvas-header text-white border-bottom">
+        <h5 class="offcanvas-title"
+        id="offcanvasNavbarLabel">Menu</h5>
+        <button
+            type="button"
+            class="btn-close btn-close-white shodow-none"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close">
+        </button>
+        </div>
+        <!-- Sidebar Body -->
+        <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
+        <ul class="navbar-nav justify-content-center
+        align-items-center fs-5 flex-grow-1 pe-3">
 
-    <div class="playerTurn">
-      @if(!controller.gameEnded) {
-        <div class="playerTurnImg">
-          @controller.currentPlayer match {
-            case "Blue" => {@playerBlue}
-            case "Red" => {@playerRed}
-            case "Green" => {@playerGreen}
-            case "Yellow" => {@playerYellow}}
-          <h1>Turn</h1>
+            <li class="nav-item mx-2">
+            <a class="nav-link" href="http://localhost:9000">Home</a>
+            </li>
+            <li class="nav-item mx-2">
+            <a class="nav-link" href="http://localhost:9000/game">Game</a>
+            </li>
+            <li class="nav-item mx-2">
+            <a class="nav-link" href="http://localhost:9000/#HowToPlay">How To Play</a>
+            </li>
+            <li class="nav-item mx-2">
+              <a class="nav-link" href="http://localhost:9000/#github">GitHub</a>
+            </li>
+        </ul>
         </div>
-      } else {
-        <div class="playerWonImg">
-          @controller.winner.substring(7) match {
-            case "Blue wins!" => {@playerBlue}
-            case "Red wins!" => {@playerRed}
-            case "Green wins!" => {@playerGreen>}
-            case "Yellow wins!" => {@playerYellow}
-            case _ => {<h1>It's a draw!</h1>}}
-          <h1>wins!</h1>
-        </div>
-      }
     </div>
+    </div>
+  </nav>
 
-    <div id="gameboard">
-      @for(row <- 0 until rowSizeY) {
-        @for(col <- 0 until colSizeX) {
-          @dot
-          @if(controller.get(1, row, col).toString.toBoolean) {
-            @barTaken
-          } else {
-            @empty
-          }
-        }
-        @dot
+  <!-- turn -->
+  <div class="containerh pt-5 pb-3">
+    @if(!controller.gameEnded) {
+      <div class="playerTurnImg">
+        @controller.currentPlayer match {
+          case "Blue" => {@playerBlue}
+          case "Red" => {@playerRed}
+          case "Green" => {@playerGreen}
+          case "Yellow" => {@playerYellow}}
+        <h1>Turn</h1>
+      </div>
+    } else {
+      <div class="playerWonImg">
+        @controller.winner.substring(7) match {
+          case "Blue wins!" => {@playerBlue}
+          case "Red wins!" => {@playerRed}
+          case "Green wins!" => {@playerGreen>}
+          case "Yellow wins!" => {@playerYellow}
+          case _ => {<h1>It's a draw!</h1>}}
+        <h1>wins!</h1>
+      </div>
+    }
+  </div>
 
-        @for(col <- 0 to colSizeX) {
-          @if(controller.get(2, row, col).toString.toBoolean) {
-            @colTaken
-          } else {
-            @empty
-          }
-          @if(col != colSizeX) {
-            @controller.get(0, row, col).toString match {
-              case "-" => {@empty}
-              case "B" => {@takenBlue}
-              case "R" => {@takenRed}
-              case "G" => {@takenGreen}
-              case "Y" => {@takenYellow}
-            }
-          }
-        }
-      }
-
+  <!-- gameboard -->
+  <div id="board">
+    @for(row <- 0 until rowSizeY) {
       @for(col <- 0 until colSizeX) {
-        @dot
-        @if(controller.get(1, rowSizeY, col).toString.toBoolean) {
-          @barTaken
+        <div class="dot"></div>
+        @if(controller.get(1, row, col).toString.toBoolean) {
+          <div class="takenLineHor"></div>
         } else {
-          @empty
-        }      
+          <button class="preBorderHor">
+            <div class="preLineHor"></div>
+          </button>
+        }
       }
-        @dot
-    </div>
+      <div class="dot"></div>
 
+      @for(col <- 0 to colSizeX) {
+        @if(controller.get(2, row, col).toString.toBoolean) {
+          <div class="takenLineVer"></div>
+        } else {
+          <button class="preBorderVer">
+            <div class="preLineVer"></div>
+          </button>
+        }
+        @if(col != colSizeX) {
+          @controller.get(0, row, col).toString match {
+            case "-" => {<div class="squareEmpty"></div>}
+            case "B" => {<div class="squareBlue"></div>}
+            case "R" => {<div class="squareRed"></div>}
+            case "G" => {<div class="squareGreen"></div>}
+            case "Y" => {<div class="squareYellow"></div>}
+          }
+        }
+      }
+    }
+    @for(col <- 0 until colSizeX) {
+      <div class="dot"></div>
+      @if(controller.get(1, rowSizeY, col).toString.toBoolean) {
+        <div class="takenLineHor"></div>
+      } else {
+        <button class="preBorderHor">
+          <div class="preLineHor"></div>
+        </button>
+      }      
+    }
+    <div class="dot"></div>
+  </div>
+
+  <!-- scoreboard -->
+  <div class="container3 mb-5">
     <div id="scoreboard">
       @for(player <- 0 until controller.playerList.size) {
         <div class="player">
@@ -98,6 +152,14 @@
         </div>
       }
     </div>
-
   </div>
+
+  <footer class="header p-5 bg-dark text-white text-center position-relative">
+    <div class="container">
+      <p class="lead">Copyright &copy; 2023 DotsAndBoxes</p>
+      <a href="#" class="position-absolute bottom-0 end-0 p-5 text-white">
+        <i class="bi bi-arrow-up-circle h1"></i>
+      </a>
+    </div>
+  </footer>
 }
