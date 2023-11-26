@@ -1,30 +1,62 @@
-document.addEventListener("DOMContentLoaded", function () {
-
-    function toggleHorizontalClasses(button) {
-      button.classList.toggle("preBorderHor");
-      button.classList.toggle("takenLineHor");
-      button.querySelector(".preLineHor").style.display = "none";
-      button.disabled = true;
+function move(index, row, col) {
+  let move = index + row + col;
+  sendRequest(
+    'GET',
+    'http://localhost:9000/game/move/' + move,
+    function() {
+        location.reload()
     }
+  );
+}
 
-    function toggleVerticalClasses(button) {
-      button.classList.toggle("preBorderVer");
-      button.classList.toggle("takenLineVer");
-      button.querySelector(".preLineVer").style.display = "none";
-      button.disabled = true;
+function undo() {
+  sendRequest(
+    'GET',
+    'http://localhost:9000/game/move/undo',
+    function() {
+        location.reload()
     }
+  );
+}
 
-    let preBorderHorButtons = document.querySelectorAll(".preBorderHor");
-    preBorderHorButtons.forEach(function(button) {
-      button.addEventListener("click", function () {
-        toggleHorizontalClasses(button);
-      });
-    });
+function redo() {
+  sendRequest(
+    'GET',
+    'http://localhost:9000/game/move/redo',
+    function() {
+      location.reload()
+    }
+  );
+}
 
-    let preBorderVerButtons = document.querySelectorAll(".preBorderVer");
-    preBorderVerButtons.forEach(function(button) {
-      button.addEventListener("click", function () {
-        toggleVerticalClasses(button);
-      });
-    });
-});
+function save() {
+  sendRequest(
+    'GET',
+    'http://localhost:9000/game/save',
+    function () {
+      location.reload();
+    }
+  );
+}
+
+function load() {
+  sendRequest(
+    'GET',
+    'http://localhost:9000/game/load',
+    function () {
+      location.reload();
+    }
+  );
+}
+
+
+function sendRequest(method, url, callback) {
+  let xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status == 200) {
+        callback(xhr.responseText);
+      }
+  };
+  xhr.send();
+}
