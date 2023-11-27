@@ -106,7 +106,7 @@
       @for(col <- 0 until colSizeX) {
         <div class="dot"></div>
         @if(controller.get(1, row, col).toString.toBoolean) {
-          <div class="takenLineHor"></div>
+          <div class="takenLineHor" id="takenHor@row@col"></div>
         } else {
           <div class="preBorderHor" id="preHor@row@col">
             <div class="preLineHor"></div>
@@ -117,7 +117,7 @@
 
       @for(col <- 0 to colSizeX) {
         @if(controller.get(2, row, col).toString.toBoolean) {
-          <div class="takenLineVer"></div>
+          <div class="takenLineVer" id="takenVer@row@col"></div>
         } else {
           <div class="preBorderVer" id="preVer@row@col">
             <div class="preLineVer"></div>
@@ -137,7 +137,7 @@
     @for(col <- 0 until colSizeX) {
       <div class="dot"></div>
       @if(controller.get(1, rowSizeY, col).toString.toBoolean) {
-        <div class="takenLineHor"></div>
+        <div class="takenLineHor" id="takenHor@rowSizeY@col"></div>
       } else {
         <div class="preBorderHor" id="preHor@rowSizeY@col">
           <div class="preLineHor"></div>

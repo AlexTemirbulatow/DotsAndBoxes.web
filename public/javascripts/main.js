@@ -73,10 +73,13 @@ function registerLines(moveDirections, prefix, vecIndex) {
     let y = element.col;
     if (!element.value) {
       $(`#${prefix}${x}${y}`).html(
-        `<button class='preBorder${vecIndex === 1 ? 'Hor' : 'Ver'}' onclick='doMove(${vecIndex},${x},${y})'>
-          <div class='preLine${vecIndex === 1 ? 'Hor' : 'Ver'}'></div>
+        `<button class='preBorder${vecIndex === 1 ? "Hor" : "Ver"}' onclick='doMove(${vecIndex},${x},${y})'>
+          <div class='preLine${vecIndex === 1 ? "Hor" : "Ver"}'></div>
         </button>`
       );
+    } else {
+      console.log(vecIndex + " " + x + " " + y + " " + element.value)
+      $(`#${prefix}${x}${y}`).html(`<div class='takenLine${vecIndex === 1 ? "Hor" : "Ver"}'></div>`);
     }
   });
 }
@@ -206,6 +209,7 @@ function undo() {
 function redo() {
   moveOnServer("redo", function() {
     registerJson();
+    updateStatus();
     updateTurn();
     updateScoreboard();
   });
