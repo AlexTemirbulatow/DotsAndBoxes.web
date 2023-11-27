@@ -1,8 +1,8 @@
 package controllers
 
-import play.api.mvc._
 import javax.inject._
-
+import play.api.mvc._
+import play.api.libs.json._
 import de.htwg.se.dotsandboxes.Default.given_FieldInterface
 import de.htwg.se.dotsandboxes.Default.given_FileIOInterface
 import de.htwg.se.dotsandboxes.model.fieldComponent.fieldImpl.Move
@@ -42,3 +42,49 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     controller.publish(controller.redo)
     Ok(views.html.field(controller))
   }
+
+  def gameToJson = Action {
+    Ok(Json.obj(
+      "field" -> Json.obj(
+        "rowSize" -> controller.colSize(1, 0),
+        "colSize" -> controller.rowSize(2),
+        "playerSize" -> Json.toJson(controller.field.playerList.size),
+        "currentPlayer" -> Json.toJson(controller.field.currentPlayerIndex),
+        "gameEnded" -> controller.gameEnded,
+        "winner" -> controller.winner,
+        "playerList" -> Json.toJson(
+          for
+            playerIndex <- 0 until controller.field.playerList.size
+          yield
+            Json.obj(
+              "index" -> playerIndex,
+              "points" -> Json.toJson(controller.field.getPoints(playerIndex)))),
+        "status" -> Json.toJson(
+          for
+            row <- 0 until controller.field.rowSize(0)
+            col <- 0 until controller.field.colSize(0, 0)
+          yield
+            Json.obj(
+              "row" -> row,
+              "col" -> col,
+              "value" -> Json.toJson(controller.field.getCell(0, row, col).toString))
+        ),
+        "rows" -> Json.toJson(
+          for
+            row <- 0 until controller.field.rowSize(1)
+            col <- 0 until controller.field.colSize(1, 0)
+          yield
+            Json.obj(
+              "row" -> row,
+              "col" -> col,
+              "value" -> Json.toJson(controller.field.getCell(1, row, col).toString.toBoolean))
+        ),
+        "cols" -> Json.toJson(
+          for
+            row <- 0 until controller.field.rowSize(2)
+            col <- 0 until controller.field.colSize(2, 0)
+          yield
+            Json.obj(
+              "row" -> row,
+              "col" -> col,
+              "value" -> Json.toJson(controller.field.getCell(2, row, col).toString.toBoolean))))))}
