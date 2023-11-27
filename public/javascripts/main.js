@@ -78,7 +78,6 @@ function registerLines(moveDirections, prefix, vecIndex) {
         </button>`
       );
     } else {
-      console.log(vecIndex + " " + x + " " + y + " " + element.value)
       $(`#${prefix}${x}${y}`).html(`<div class='takenLine${vecIndex === 1 ? "Hor" : "Ver"}'></div>`);
     }
   });
@@ -216,14 +215,14 @@ function redo() {
 }
 
 function save() {
-  $.get("/game/save", function(data) {
-    console.log("Saving the game state.");
+  $.get("/game/save", function() {
+    console.log("Saving current gamestate.");
   })
 }
 
 function load() {
-  $.get("/game/load", function(data) {
-    console.log("Loading the game state.");
+  $.get("/game/load", function() {
+    console.log("Loading last gamestate.");
     registerJson();
   })
 }
