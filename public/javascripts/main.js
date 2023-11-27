@@ -148,32 +148,31 @@ function updateTurn() {
     } else {
       switch (data.field.winner) {
         case "Player Blue wins!":
-          console.log("Player Blue wins!");
-          $("#turn").html($("#imgBlue").clone());
-          $("#turn").append("<h1>wins!</h1>");
+          displayWinner("Player Blue", $("#imgBlue"));
           break;
         case "Player Red wins!":
-          console.log("Player Red wins!");
-          $("#turn").html($("#imgRed").clone());
-          $("#turn").append("<h1>wins!</h1>");
+          displayWinner("Player Red", $("#imgRed"));
           break;
         case "Player Green wins!":
-          console.log("Player Green wins!");
-          $("#turn").html($("#imgGreen").clone());
-          $("#turn").append("<h1>wins!</h1>");
+          displayWinner("Player Green", $("#imgGreen"));
           break;
         case "Player Yellow wins!":
-          console.log("Player Yellow wins!");
-          $("#turn").html($("#imgYellow").clone());
-          $("#turn").append("<h1>wins!</h1>");
+          displayWinner("Player Yellow", $("#imgYellow"));
           break;
         case "It's a draw!":
           console.log("It's a draw!");
           $("#turn").html("<h1>It's a draw!</h1>");
           break;
+        default:
       }
     }
   });
+}
+
+function displayWinner(winner, image) {
+  console.log(`${winner} wins!`);
+  $("#turn").html(image.clone());
+  $("#turn").append("<h1>wins!</h1>");
 }
 
 function updateScoreboard() {
@@ -224,5 +223,8 @@ function load() {
   $.get("/game/load", function() {
     console.log("Loading last gamestate.");
     registerJson();
+    updateStatus();
+    updateTurn();
+    updateScoreboard();
   })
 }
