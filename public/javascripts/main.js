@@ -1,8 +1,45 @@
+$(document).ready(function() {
+  $(".preBorderHor").hover(function() {
+    $(this).addClass("preBorderHorHovered");
+  }, function() {
+    $(this).removeClass("preBorderHorHovered");
+  });
+
+  $(".preBorderVer").hover(function() {
+    $(this).addClass("preBorderVerHovered");
+  }, function() {
+    $(this).removeClass("preBorderVerHovered");
+  });
+
+  $("#playbtn")
+  .on("mouseenter", function(e) {
+    let parentOffset = $(this).offset(),
+    relX = e.pageX - parentOffset.left,
+    relY = e.pageY - parentOffset.top;
+    $(this).find("span").css({
+      top: relY,
+      left: relX,
+    });
+  })
+  .on("mouseout", function(e) {
+    let parentOffset = $(this).offset(),
+    relX = e.pageX - parentOffset.left,
+    relY = e.pageY - parentOffset.top;
+    $(this).find("span").css({
+      top:relY,
+      left: relX,
+    });
+  });
+
+  registerJson();
+
+});
+
 function registerJson() {
   $.get("/game/json", function(data) {
     registerStatus(data.field.status);
-    registerMoves(data.field.rows, "preHor", 1);
-    registerMoves(data.field.cols, "preVer", 2);
+    registerLines(data.field.rows, "preHor", 1);
+    registerLines(data.field.cols, "preVer", 2);
   });
 }
 
@@ -21,29 +58,34 @@ function registerStatus(status) {
         $("#cellGreen"+x+""+y).html("<div class='squareGreen'></div>");
         break;
       case "Y":
-        $("#cellYellow"+x+""+y).html("<div class='squareGreen'></div>");
+        $("#cellYellow"+x+""+y).html("<div class='squareYellow'></div>");
+        break;
+      case "-":
+        $("#cellEmpty"+x+""+y).html("<div class='squareEmpty'></div>");
         break;
     }
   });
 }
 
-function registerMoves(moveDir, prefix, vecIndex) {
-  $.each(moveDir, function(_, element) {
+function registerLines(moveDirections, prefix, vecIndex) {
+  $.each(moveDirections, function(_, element) {
     let x = element.row;
     let y = element.col;
     if (!element.value) {
       $(`#${prefix}${x}${y}`).html(
-        `<button class='preBorder${vecIndex === 1 ? 'Hor' : 'Ver'}' onclick='doMove(${vecIndex},${x},${y})'>
-          <div class='preLine${vecIndex === 1 ? 'Hor' : 'Ver'}'></div>
+        `<button class='preBorder${vecIndex === 1 ? "Hor" : "Ver"}' onclick='doMove(${vecIndex},${x},${y})'>
+          <div class='preLine${vecIndex === 1 ? "Hor" : "Ver"}'></div>
         </button>`
       );
+    } else {
+      $(`#${prefix}${x}${y}`).html(`<div class='takenLine${vecIndex === 1 ? "Hor" : "Ver"}'></div>`);
     }
   });
 }
 
 function doMove(vecIndex, x, y) {
-  let preSelector = vecIndex === 1 ? "#preHor" : "#preVer";
-  $(`${preSelector}${x}${y}`).html(`<div class='takenLine${vecIndex === 1 ? "Hor" : "Ver"}'></div>`);
+  let preLineDirections = vecIndex === 1 ? "#preHor" : "#preVer";
+  $(`${preLineDirections}${x}${y}`).html(`<div class='takenLine${vecIndex === 1 ? "Hor" : "Ver"}'></div>`);
 
   moveOnServer(`${vecIndex}${x}${y}`, function() {
     updateStatus();
@@ -76,6 +118,9 @@ function updateStatus() {
           break;
         case "Y":
           $(cellselector).html("<div class='squareGreen'></div>");
+          break;
+        case "-":
+          $(cellselector).html("<div class='squareEmpty'></div>");
           break;
       }
     });
@@ -152,63 +197,32 @@ function updateScoreboard() {
   });
 }
 
-$(document).ready(function() {
-  $(".preBorderHor").hover(horizontalHover);
-  $(".preBorderVer").hover(verticalHover);
-  function horizontalHover() {
-    $(this).toggleClass("preBorderHorHovered");
-  }
-  function verticalHover() {
-    $(this).toggleClass("preBorderVerHovered");
-  }
-
-  $("#playbtn")
-  .on("mouseenter", function(e) {
-    let parentOffset = $(this).offset(),
-    relX = e.pageX - parentOffset.left,
-    relY = e.pageY - parentOffset.top;
-    $(this).find("span").css({
-      top: relY,
-      left: relX,
-    });
-  })
-  .on("mouseout", function(e) {
-    let parentOffset = $(this).offset(),
-    relX = e.pageX - parentOffset.left,
-    relY = e.pageY - parentOffset.top;
-    $(this).find("span").css({
-      top:relY,
-      left: relX,
-    });
-  });
-
-  registerJson();
-
-});
-
 function undo() {
-  $.get("/game/move/undo", function(data) {
+  moveOnServer("undo", function() {
     registerJson();
-    console.log("Move on server (undo)");
-  })
+    updateTurn();
+    updateScoreboard();
+  });
 }
 
 function redo() {
-  $.get("/game/move/redo", function(data) {
+  moveOnServer("redo", function() {
     registerJson();
-    console.log("Move on server (redo)");
-  })
+    updateStatus();
+    updateTurn();
+    updateScoreboard();
+  });
 }
 
 function save() {
-  $.get("/game/save", function(data) {
-    console.log("Saving the game state.");
+  $.get("/game/save", function() {
+    console.log("Saving current gamestate.");
   })
 }
 
 function load() {
-  $.get("/game/load", function(data) {
-    console.log("Loading the game state.");
+  $.get("/game/load", function() {
+    console.log("Loading last gamestate.");
     registerJson();
   })
 }
