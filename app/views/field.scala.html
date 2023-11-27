@@ -1,13 +1,12 @@
 @(controller: de.htwg.se.dotsandboxes.controller.controllerComponent.ControllerInterface)
 
-
 @colSizeX = @{controller.colSize(1, 0)}
 @rowSizeY = @{controller.rowSize(2)}
 
-@playerBlue = {<img src="@routes.Assets.versioned("images/playerBlue.png")">}
-@playerRed = {<img src="@routes.Assets.versioned("images/playerRed.png")">}
-@playerGreen = {<img src="@routes.Assets.versioned("images/playerGreen.png")">}
-@playerYellow = {<img src="@routes.Assets.versioned("images/playerYellow.png")">}
+@playerBlue = {<img id="imgBlue" src="@routes.Assets.versioned("images/playerBlue.png")">}
+@playerRed = {<img id="imgRed" src="@routes.Assets.versioned("images/playerRed.png")">}
+@playerGreen = {<img id="imgGreen" src="@routes.Assets.versioned("images/playerGreen.png")">}
+@playerYellow = {<img id="imgYellow" src="@routes.Assets.versioned("images/playerYellow.png")">}
 
 
 @main("DotsAndBoxes") {
@@ -45,22 +44,29 @@
         </div>
         <!-- Sidebar Body -->
         <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
-        <ul class="navbar-nav justify-content-center
-        align-items-center fs-5 flex-grow-1 pe-3">
+          <ul class="navbar-nav justify-content-center
+          align-items-center fs-5 flex-grow-1 pe-3">
 
-            <li class="nav-item mx-2">
-            <a class="nav-link" href="http://localhost:9000">Home</a>
-            </li>
-            <li class="nav-item mx-2">
-            <a class="nav-link" href="http://localhost:9000/game">Game</a>
-            </li>
-            <li class="nav-item mx-2">
-            <a class="nav-link" href="http://localhost:9000/#HowToPlay">How To Play</a>
-            </li>
-            <li class="nav-item mx-2">
-              <a class="nav-link" href="http://localhost:9000/#github">GitHub</a>
-            </li>
-        </ul>
+              <li class="nav-item mx-2">
+              <a class="nav-link" href="http://localhost:9000">Home</a>
+              </li>
+              <li class="nav-item mx-2">
+              <a class="nav-link active" aria-current="page" 
+                href="http://localhost:9000/game">Game</a>
+              </li>
+              <li class="nav-item mx-2">
+              <a class="nav-link" href="http://localhost:9000/#rules">Rules</a>
+              </li>
+              <li class="nav-item mx-2">
+                <a class="nav-link" href="http://localhost:9000/#github">GitHub</a>
+              </li>
+          </ul>
+          <div class="d-flex justify-content-center align-items-center gap-3">
+            <button class="operation" onclick="undo()"><h4><i class="bi bi-arrow-counterclockwise"></i></h4></button>
+            <button class="operation" onclick="redo()"><h4><i class="bi bi-arrow-clockwise"></i></h4></button>
+            <button class="operation" onclick="save()"><h5><i class="bi bi-plus-square"></i></h5></button>
+            <button class="operation mt-1" onclick="load()"><h4><i class="bi bi-box-arrow-down"></i></h4></button>
+          </div>
         </div>
     </div>
     </div>
@@ -69,12 +75,13 @@
   <!-- turn -->
   <div class="containerh pt-5 pb-3">
     @if(!controller.gameEnded) {
-      <div class="playerTurnImg">
+      <div class="playerTurnImg" id="turn">
         @controller.currentPlayer match {
           case "Blue" => {@playerBlue}
           case "Red" => {@playerRed}
           case "Green" => {@playerGreen}
-          case "Yellow" => {@playerYellow}}
+          case "Yellow" => {@playerYellow}
+        }
         <h1>Turn</h1>
       </div>
     } else {
@@ -84,8 +91,11 @@
           case "Red wins!" => {@playerRed}
           case "Green wins!" => {@playerGreen>}
           case "Yellow wins!" => {@playerYellow}
-          case _ => {<h1>It's a draw!</h1>}}
-        <h1>wins!</h1>
+          case _ => {<h1>It's a draw!</h1>}
+        }
+        @if(!controller.winner.equals("It's a draw!")) {
+          <h1>wins!</h1>
+        }
       </div>
     }
   </div>
@@ -98,9 +108,9 @@
         @if(controller.get(1, row, col).toString.toBoolean) {
           <div class="takenLineHor"></div>
         } else {
-          <button class="preBorderHor">
+          <div class="preBorderHor" id="preHor@row@col">
             <div class="preLineHor"></div>
-          </button>
+          </div>
         }
       }
       <div class="dot"></div>
@@ -109,17 +119,17 @@
         @if(controller.get(2, row, col).toString.toBoolean) {
           <div class="takenLineVer"></div>
         } else {
-          <button class="preBorderVer">
+          <div class="preBorderVer" id="preVer@row@col">
             <div class="preLineVer"></div>
-          </button>
+          </div>
         }
         @if(col != colSizeX) {
           @controller.get(0, row, col).toString match {
-            case "-" => {<div class="squareEmpty"></div>}
-            case "B" => {<div class="squareBlue"></div>}
-            case "R" => {<div class="squareRed"></div>}
-            case "G" => {<div class="squareGreen"></div>}
-            case "Y" => {<div class="squareYellow"></div>}
+            case "B" => {<div class="squareEmpty" id="cellBlue@row@col"></div>}
+            case "R" => {<div class="squareEmpty" id="cellRed@row@col"></div>}
+            case "G" => {<div class="squareEmpty" id="cellGreen@row@col"></div>}
+            case "Y" => {<div class="squareEmpty" id="cellYellow@row@col"></div>}
+            case "-" => {<div class="squareEmpty" id="cellEmpty@row@col"></div>}
           }
         }
       }
@@ -129,9 +139,9 @@
       @if(controller.get(1, rowSizeY, col).toString.toBoolean) {
         <div class="takenLineHor"></div>
       } else {
-        <button class="preBorderHor">
+        <div class="preBorderHor" id="preHor@rowSizeY@col">
           <div class="preLineHor"></div>
-        </button>
+        </div>
       }      
     }
     <div class="dot"></div>
@@ -141,7 +151,7 @@
   <div class="container3 mb-5">
     <div id="scoreboard">
       @for(player <- 0 until controller.playerList.size) {
-        <div class="player">
+        <div class="player" id="player@player">
           @controller.playerList(player).playerId match {
             case "Blue" => {@playerBlue}
             case "Red" => {@playerRed}
