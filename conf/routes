@@ -6,14 +6,13 @@
 # Controller for Dots And Boxes
 GET      /                                controllers.HomeController.home
 GET      /tui                             controllers.HomeController.tui
-GET      /game                            controllers.HomeController.displayGame
+GET      /game                            controllers.HomeController.game
 GET      /game/save                       controllers.HomeController.save
 GET      /game/load                       controllers.HomeController.load
 GET      /game/move/undo                  controllers.HomeController.undo
 GET      /game/move/redo                  controllers.HomeController.redo
 GET      /game/move/:input                controllers.HomeController.move(input: String)
-
-
+GET      /game/json                       controllers.HomeController.gameToJson
 
 # Map static resources from the /public folder to the /assets URL path
 GET      /assets/*file                    controllers.Assets.versioned(path="/public", file: Asset)
