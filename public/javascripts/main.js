@@ -49,19 +49,19 @@ function registerStatus(status) {
     let y = element.col;
     switch (element.value) {
       case "B":
-        $("#cellBlue"+x+""+y).html("<div class='squareBlue'></div>");
+        $(`#cellBlue${x}${y}`).html("<div class='squareBlue'></div>");
         break;
       case "R":
-        $("#cellRed"+x+""+y).html("<div class='squareRed'></div>");
+        $(`#cellRed${x}${y}`).html("<div class='squareRed'></div>");
         break;
       case "G":
-        $("#cellGreen"+x+""+y).html("<div class='squareGreen'></div>");
+        $(`#cellGreen${x}${y}`).html("<div class='squareGreen'></div>");
         break;
       case "Y":
-        $("#cellYellow"+x+""+y).html("<div class='squareYellow'></div>");
+        $(`#cellYellow${x}${y}`).html("<div class='squareYellow'></div>");
         break;
       case "-":
-        $("#cellEmpty"+x+""+y).html("<div class='squareEmpty'></div>");
+        $(`#cellEmpty${x}${y}`).html("<div class='squareEmpty'></div>");
         break;
     }
   });
@@ -95,8 +95,8 @@ function doMove(vecIndex, x, y) {
 }
 
 function moveOnServer(move, callback) {
-  $.get("/game/move/" + move, function() {
-    console.log("Move on server (" + move + ")");
+  $.get(`/game/move/${move}`, function() {
+    console.log(`Move on server (${move})`);
   }).done(callback);
 }
 
@@ -105,7 +105,7 @@ function updateStatus() {
     $.each(data.field.status, function(_, element) {
       let x = element.row;
       let y = element.col;
-      let cellselector = "#cellEmpty"+x+""+y
+      let cellselector = `#cellEmpty${x}${y}`
       switch (element.value) {
         case "B":
           $(cellselector).html("<div class='squareBlue'></div>");
@@ -180,16 +180,16 @@ function updateScoreboard() {
     $.each(data.field.playerList, function(playerIndex, element) {
       switch (element.index) {
         case 0:
-          $("#player"+playerIndex).find('h2').html(element.points)
+          $(`#player${playerIndex}`).find('h2').html(element.points)
           break;
         case 1:
-          $("#player"+playerIndex).find('h2').html(element.points)
+          $(`#player${playerIndex}`).find('h2').html(element.points)
           break;
         case 2:
-          $("#player"+playerIndex).find('h2').html(element.points)
+          $(`#player${playerIndex}`).find('h2').html(element.points)
           break;
         case 3:
-          $("#player"+playerIndex).find('h2').html(element.points)
+          $(`#player${playerIndex}`).find('h2').html(element.points)
           break;
       }
     });
