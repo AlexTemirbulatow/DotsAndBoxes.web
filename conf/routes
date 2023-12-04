@@ -13,6 +13,7 @@ GET      /game/move/undo                  controllers.HomeController.undo
 GET      /game/move/redo                  controllers.HomeController.redo
 GET      /game/move/:input                controllers.HomeController.move(input: String)
 GET      /game/json                       controllers.HomeController.gameToJson
+GET      /websocket                       controllers.HomeController.socket
 
 # Map static resources from the /public folder to the /assets URL path
 GET      /assets/*file                    controllers.Assets.versioned(path="/public", file: Asset)
