@@ -235,13 +235,13 @@ function connectWebSocket() {
   websocket.setTimeout
 
   websocket.onopen = function() {
-    console.log("Connected to Websocket");
+    console.log("Successfully connected to WebSocket");
   }
   websocket.onclose = function() {
-    console.log("Connection with Websocket CLosed!");
+    console.log("Connection with WebSocket closed!");
   }
   websocket.onerror = function(error) {
-    console.log("Error in Websocket occured: " + error);
+    console.log("Error in WebSocket occured: " + error);
   }
 
   websocket.onmessage = function(msg) {
