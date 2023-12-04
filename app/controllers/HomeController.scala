@@ -53,33 +53,28 @@ class HomeController @Inject()(cc: ControllerComponents) (implicit system: Actor
 
   def socket = WebSocket.accept[String, String] { request =>
     ActorFlow.actorRef { out =>
-      println("Connect received")
       DotsAndBoxesActorFactory.create(out)
     }
   }
 
 
-  object DotsAndBoxesActorFactory {
-    def create(out: ActorRef) = {
+  object DotsAndBoxesActorFactory:
+    def create(out: ActorRef) =
       Props(new DotsAndBoxesActor(out))
-    }
-  }
 
-  class DotsAndBoxesActor(out: ActorRef) extends Actor with Observer {
+
+  class DotsAndBoxesActor(out: ActorRef) extends Actor with Observer:
     controller.add(this)
 
-    override def update(event: Event): Unit = {
-      println("Sent Json")
+    override def update(event: Event): Unit =
       out ! (toJsonObj.toString)
-    }
-    def receive = {
+
+    def receive =
       case msg: String =>
         out ! (toJsonObj.toString)
-        println("Sent Json to Client" + msg)
-    }
-  }
 
-  def toJsonObj = {
+
+  def toJsonObj =
     Json.obj(
       "field" -> Json.obj(
         "rowSize" -> controller.colSize(1, 0),
@@ -123,4 +118,4 @@ class HomeController @Inject()(cc: ControllerComponents) (implicit system: Actor
             Json.obj(
               "row" -> row,
               "col" -> col,
-              "value" -> Json.toJson(controller.field.getCell(2, row, col).toString.toBoolean)))))}
+              "value" -> Json.toJson(controller.field.getCell(2, row, col).toString.toBoolean)))))
