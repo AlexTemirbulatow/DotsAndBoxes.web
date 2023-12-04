@@ -32,6 +32,7 @@ $(document).ready(function() {
   });
 
   registerJson();
+  connectWebSocket();
 
 });
 
@@ -228,3 +229,30 @@ function load() {
     updateScoreboard();
   })
 }
+
+function connectWebSocket() {
+  var websocket = new WebSocket("ws://localhost:9000/websocket");
+  websocket.setTimeout
+
+  websocket.onopen = function() {
+    console.log("Successfully connected to WebSocket");
+  }
+  websocket.onclose = function() {
+    console.log("Connection with WebSocket closed!");
+  }
+  websocket.onerror = function(error) {
+    console.log("Error in WebSocket occured: " + error);
+  }
+
+  websocket.onmessage = function(msg) {
+    if (typeof msg.data === "string") {
+      registerJson();
+      updateStatus();
+      updateTurn();
+      updateScoreboard();
+    }
+  }
+}
+
+
+

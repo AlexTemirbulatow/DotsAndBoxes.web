@@ -1,8 +1,12 @@
 package controllers
 
+import akka.actor._
+import akka.stream.Materializer
 import javax.inject._
 import play.api.mvc._
 import play.api.libs.json._
+import play.api.libs.streams.ActorFlow
+import de.htwg.se.dotsandboxes.util.{Observer, Event}
 import de.htwg.se.dotsandboxes.Default.given_FieldInterface
 import de.htwg.se.dotsandboxes.Default.given_FileIOInterface
 import de.htwg.se.dotsandboxes.model.fieldComponent.fieldImpl.Move
@@ -10,7 +14,7 @@ import de.htwg.se.dotsandboxes.controller.controllerComponent.controllerImpl.Con
 
 
 @Singleton
-class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc):
+class HomeController @Inject()(cc: ControllerComponents) (implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc):
   val controller = new Controller()
   def getField = controller.toString
 
@@ -44,7 +48,34 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   }
 
   def gameToJson = Action {
-    Ok(Json.obj(
+    Ok(toJsonObj)
+  }
+
+  def socket = WebSocket.accept[String, String] { request =>
+    ActorFlow.actorRef { out =>
+      DotsAndBoxesActorFactory.create(out)
+    }
+  }
+
+
+  object DotsAndBoxesActorFactory:
+    def create(out: ActorRef) =
+      Props(new DotsAndBoxesActor(out))
+
+
+  class DotsAndBoxesActor(out: ActorRef) extends Actor with Observer:
+    controller.add(this)
+
+    override def update(event: Event): Unit =
+      out ! (toJsonObj.toString)
+
+    def receive =
+      case msg: String =>
+        out ! (toJsonObj.toString)
+
+
+  def toJsonObj =
+    Json.obj(
       "field" -> Json.obj(
         "rowSize" -> controller.colSize(1, 0),
         "colSize" -> controller.rowSize(2),
@@ -87,4 +118,4 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
             Json.obj(
               "row" -> row,
               "col" -> col,
-              "value" -> Json.toJson(controller.field.getCell(2, row, col).toString.toBoolean))))))}
+              "value" -> Json.toJson(controller.field.getCell(2, row, col).toString.toBoolean)))))
