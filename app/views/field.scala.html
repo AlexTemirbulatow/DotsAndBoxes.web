@@ -1,13 +1,5 @@
 @(controller: de.htwg.se.dotsandboxes.controller.controllerComponent.ControllerInterface)
 
-@colSizeX = @{controller.colSize(1, 0)}
-@rowSizeY = @{controller.rowSize(2)}
-
-@playerBlue = {<img id="imgBlue" src="@routes.Assets.versioned("images/playerBlue.png")">}
-@playerRed = {<img id="imgRed" src="@routes.Assets.versioned("images/playerRed.png")">}
-@playerGreen = {<img id="imgGreen" src="@routes.Assets.versioned("images/playerGreen.png")">}
-@playerYellow = {<img id="imgYellow" src="@routes.Assets.versioned("images/playerYellow.png")">}
-
 
 @main("DotsAndBoxes") {
   <!-- Navbar -->
@@ -72,115 +64,7 @@
     </div>
   </nav>
 
-  
-  
-  
-  
-  <!-- turn -->
-  <div class="containerh pt-5 pb-3">
-    @if(!controller.gameEnded) {
-      <div class="playerTurnImg" id="turn">
-        @controller.currentPlayer match {
-          case "Blue" => {@playerBlue}
-          case "Red" => {@playerRed}
-          case "Green" => {@playerGreen}
-          case "Yellow" => {@playerYellow}
-        }
-        <h1>Turn</h1>
-      </div>
-    } else {
-      <div class="playerWonImg">
-        @controller.winner.substring(7) match {
-          case "Blue wins!" => {@playerBlue}
-          case "Red wins!" => {@playerRed}
-          case "Green wins!" => {@playerGreen>}
-          case "Yellow wins!" => {@playerYellow}
-          case _ => {<h1>It's a draw!</h1>}
-        }
-        @if(!controller.winner.equals("It's a draw!")) {
-          <h1>wins!</h1>
-        }
-      </div>
-    }
-  </div>
-
-  <div id="app">
-
-    <!--<div id="board">
-      <template v-for="(item, index) in this.rows">
-        <div class="dot"></div
-        <div style="color: white">({{ item.row }}{{ item.col }}: {{ item.value }}) </div>
-      </template>
-    </div>-->
-
-
-
-    
-  </div>
-
-  <!-- gameboard 
-  <div id="board">
-    @for(row <- 0 until rowSizeY) {
-      @for(col <- 0 until colSizeX) {
-        <div class="dot"></div>
-        @if(controller.get(1, row, col).toString.toBoolean) {
-          <div class="takenLineHor" id="takenHor@row@col"></div>
-        } else {
-          <div class="preBorderHor" id="preHor@row@col">
-            <div class="preLineHor"></div>
-          </div>
-        }
-      }
-      <div class="dot"></div>
-
-      @for(col <- 0 to colSizeX) {
-        @if(controller.get(2, row, col).toString.toBoolean) {
-          <div class="takenLineVer" id="takenVer@row@col"></div>
-        } else {
-          <div class="preBorderVer" id="preVer@row@col">
-            <div class="preLineVer"></div>
-          </div>
-        }
-        @if(col != colSizeX) {
-          @controller.get(0, row, col).toString match {
-            case "B" => {<div class="squareEmpty" id="cellBlue@row@col"></div>}
-            case "R" => {<div class="squareEmpty" id="cellRed@row@col"></div>}
-            case "G" => {<div class="squareEmpty" id="cellGreen@row@col"></div>}
-            case "Y" => {<div class="squareEmpty" id="cellYellow@row@col"></div>}
-            case "-" => {<div class="squareEmpty" id="cellEmpty@row@col"></div>}
-          }
-        }
-      }
-    }
-    @for(col <- 0 until colSizeX) {
-      <div class="dot"></div>
-      @if(controller.get(1, rowSizeY, col).toString.toBoolean) {
-        <div class="takenLineHor" id="takenHor@rowSizeY@col"></div>
-      } else {
-        <div class="preBorderHor" id="preHor@rowSizeY@col">
-          <div class="preLineHor"></div>
-        </div>
-      }      
-    }
-    <div class="dot"></div>
-  </div>-->
-
-  <!-- scoreboard -->
-  <div class="container3 mb-5">
-    <div id="scoreboard">
-      @for(player <- 0 until controller.playerList.size) {
-        <div class="player" id="player@player">
-          @controller.playerList(player).playerId match {
-            case "Blue" => {@playerBlue}
-            case "Red" => {@playerRed}
-            case "Green" => {@playerGreen}
-            case "Yellow" => {@playerYellow}
-          }
-          <h2>@controller.playerList(player).points</h2>
-        </div>
-      }
-    </div>
-  </div>
+  <div id="gameboard"></div>
 
   <footer class="header p-5 bg-dark text-white text-center position-relative">
     <div class="container">

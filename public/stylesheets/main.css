@@ -169,7 +169,7 @@ body h5 {
   }
   
 .preBorderHor:hover .preLineHor {
-display: none;
+    display: none;
 }
 .preLineHor {
     background-color: #4c4c4c66;
@@ -226,20 +226,20 @@ display: none;
     align-items: center;
 }
 .preBorderVer:hover {
-background-color: #5959594a;
-box-shadow: 7px 0px 0px #5b5b5b;
-width: 30px;
-height: 120px;
-border: none;
-border-radius: 12px;
-display: flex;
-justify-content: center;
-align-items: center;
-margin: -25px 0;
+    background-color: #5959594a;
+    box-shadow: 7px 0px 0px #5b5b5b;
+    width: 30px;
+    height: 120px;
+    border: none;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -25px 0;
 }
 
 .preBorderVer:hover .preLineVer {
-display: none;
+    display: none;
 }
 .takenLineVer {
     background-color: #b5b5b5;

@@ -102,30 +102,11 @@ function moveOnServer(move, callback) {
 }
 
 function updateStatus() {
-  $.get("/game/json", function(data) {
-    $.each(data.field.status, function(_, element) {
-      let x = element.row;
-      let y = element.col;
-      let cellselector = `#cellEmpty${x}${y}`
-      switch (element.value) {
-        case "B":
-          $(cellselector).html("<div class='squareBlue'></div>");
-          break;
-        case "R":
-          $(cellselector).html("<div class='squareRed'></div>");
-          break;
-        case "G":
-          $(cellselector).html("<div class='squareGreen'></div>");
-          break;
-        case "Y":
-          $(cellselector).html("<div class='squareGreen'></div>");
-          break;
-        case "-":
-          $(cellselector).html("<div class='squareEmpty'></div>");
-          break;
-      }
-    });
-  });
+  $.get("/game/json", data => {
+    const classMapping = { "-": "square-", "B": "squareB", "R": "squareR", "G": "squareG", "Y": "squareY" };
+    $.each(data.field.status, (_, element) => 
+      $(`#cell-${element.row}${element.col}`).html(`<div class='${classMapping[element.value]}'></div>`));
+  });;
 }
 
 function updateTurn() {
@@ -139,10 +120,10 @@ function updateTurn() {
           $("#turn").html($("#imgRed").clone());
           break;
         case 2:
-          $("#turn").html($("#imgGreen"));
+          $("#turn").html($("#imgGreen").clone());
           break;
         case 3:
-          $("#turn").html($("#imgYellow"));
+          $("#turn").html($("#imgYellow").clone());
           break;
       }
       $("#turn").append("<h1>Turn</h1>");
@@ -164,7 +145,6 @@ function updateTurn() {
           console.log("It's a draw!");
           $("#turn").html("<h1>It's a draw!</h1>");
           break;
-        default:
       }
     }
   });
@@ -252,3 +232,48 @@ function connectWebSocket() {
     }
   }
 }
+
+
+/*
+<div class="containerh pt-5 pb-3">
+  @if(!controller.gameEnded) {
+    <div class="playerTurnImg" id="turn">
+      @controller.currentPlayer match {
+        case "Blue" => {@playerBlue}
+        case "Red" => {@playerRed}
+        case "Green" => {@playerGreen}
+        case "Yellow" => {@playerYellow}
+      }
+      <h1>Turn</h1>
+    </div>
+  } else {
+    <div class="playerWonImg">
+      @controller.winner.substring(7) match {
+        case "Blue wins!" => {@playerBlue}
+        case "Red wins!" => {@playerRed}
+        case "Green wins!" => {@playerGreen>}
+        case "Yellow wins!" => {@playerYellow}
+        case _ => {<h1>It's a draw!</h1>}
+      }
+      @if(!controller.winner.equals("It's a draw!")) {
+        <h1>wins!</h1>
+      }
+    </div>
+  }
+</div>
+
+  <div class="container3 mb-5">
+    <div id="scoreboard">
+      @for(player <- 0 until controller.playerList.size) {
+        <div class="player" id="player@player">
+          @controller.playerList(player).playerId match {
+            case "Blue" => {@playerBlue}
+            case "Red" => {@playerRed}
+            case "Green" => {@playerGreen}
+            case "Yellow" => {@playerYellow}
+          }
+          <h2>@controller.playerList(player).points</h2>
+        </div>
+      }
+    </div>
+  </div>*/
