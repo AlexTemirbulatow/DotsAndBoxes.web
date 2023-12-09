@@ -72,8 +72,10 @@
     </div>
   </nav>
 
-  <div id="app">Counter: {{count}}</div>
-
+  
+  
+  
+  
   <!-- turn -->
   <div class="containerh pt-5 pb-3">
     @if(!controller.gameEnded) {
@@ -102,7 +104,21 @@
     }
   </div>
 
-  <!-- gameboard -->
+  <div id="app">
+
+    <!--<div id="board">
+      <template v-for="(item, index) in this.rows">
+        <div class="dot"></div
+        <div style="color: white">({{ item.row }}{{ item.col }}: {{ item.value }}) </div>
+      </template>
+    </div>-->
+
+
+
+    
+  </div>
+
+  <!-- gameboard 
   <div id="board">
     @for(row <- 0 until rowSizeY) {
       @for(col <- 0 until colSizeX) {
@@ -147,7 +163,7 @@
       }      
     }
     <div class="dot"></div>
-  </div>
+  </div>-->
 
   <!-- scoreboard -->
   <div class="container3 mb-5">

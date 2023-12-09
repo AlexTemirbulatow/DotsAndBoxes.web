@@ -155,7 +155,7 @@ body h5 {
     margin: 0 -25px;
     z-index: 0;
 }
-.preBorderHorHovered {
+.preBorderHor:hover {
     background-color: #5959594a;
     box-shadow: 2px 7px 0px #5b5b5b;
     width: 120px;
@@ -166,9 +166,10 @@ body h5 {
     justify-content: center;
     align-items: center;
     margin: 0 -25px;
-    .preLineHor {
-        display: none;
-    }
+  }
+  
+.preBorderHor:hover .preLineHor {
+display: none;
 }
 .preLineHor {
     background-color: #4c4c4c66;
@@ -224,6 +225,22 @@ body h5 {
     justify-content: center;
     align-items: center;
 }
+.preBorderVer:hover {
+background-color: #5959594a;
+box-shadow: 7px 0px 0px #5b5b5b;
+width: 30px;
+height: 120px;
+border: none;
+border-radius: 12px;
+display: flex;
+justify-content: center;
+align-items: center;
+margin: -25px 0;
+}
+
+.preBorderVer:hover .preLineVer {
+display: none;
+}
 .takenLineVer {
     background-color: #b5b5b5;
     box-shadow: 7px 0px 0px #5b5b5b;
@@ -245,27 +262,27 @@ body h5 {
     align-items: center;
 }
 
-.squareEmpty {
+.square- {
     background: none;
     width: 70px;
     height: 70px;
 }
-.squareBlue {
+.squareB {
     background-color: #69a3bc;
     width: 70px;
     height: 70px;
 }
-.squareRed {
+.squareR {
     background-color: #bc6969;
     width: 70px;
     height: 70px;
 }
-.squareGreen {
+.squareG {
     background-color: #73bc69;
     width: 70px;
     height: 70px;
 }
-.squareYellow {
+.squareY {
     background-color: #bbbc69;
     width: 70px;
     height: 70px;

@@ -232,7 +232,6 @@ function load() {
 
 function connectWebSocket() {
   var websocket = new WebSocket("ws://localhost:9000/websocket");
-  websocket.setTimeout
 
   websocket.onopen = function() {
     console.log("Successfully connected to WebSocket");
