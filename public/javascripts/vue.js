@@ -91,6 +91,7 @@ const gameboard = Vue.createApp({
             console.log(`Player ${winnerColor} wins!`)
           }
         }
+        data.field.playerList.forEach((element, playerIndex) => $(`#player${playerIndex}`).find('h2').html(element.points)); 
       })
     }
   },
@@ -154,7 +155,7 @@ const gameboard = Vue.createApp({
   	<div class="container3 mb-5">
       <div id="scoreboard">
         <template v-for="player in playerList">
-        <div class="player">
+        <div class="player" :id="'player' + player.index">
           <img :src="'/assets/images/player' + matchingPlayer(player.index) + '.png'">
           <h2>{{ player.points }}</h2>
         </div>
