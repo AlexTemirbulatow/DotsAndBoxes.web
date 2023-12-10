@@ -24,12 +24,7 @@ export const gameboard = {
       this.websocket.onerror = (error) => console.log("Error in WebSocket occurred: " + error)
       this.websocket.onmessage = msg => {
         if (typeof msg.data === "string") {
-          const data = JSON.parse(msg.data)
           this.updateBoard()
-          data.field.rows.forEach(element => {
-            element.value && $(`#preHor${element.row}${element.col}`).replaceWith("<div class='takenLineHor'></div>")})
-          data.field.cols.forEach(element => {
-            element.value && $(`#preVer${element.row}${element.col}`).replaceWith("<div class='takenLineVer'></div>")})
         }
       }
     },
@@ -48,11 +43,7 @@ export const gameboard = {
     },
     doMove(index, x, y) {
       console.log(`move: ${index}${x}${y}`)
-      $.get(`/game/move/${index}${x}${y}`, () => {
-        const direction = index === 1 ? "#preHor" : "#preVer"
-        $(`${direction}${x}${y}`).replaceWith(`<div class='takenLine${index === 1 ? "Hor" : "Ver"}'></div>`)
-        this.updateBoard()
-      })
+      $.get(`/game/move/${index}${x}${y}`, () => { this.updateBoard() })
     },
     updateBoard() {
       $.get("/game/json", data => {
@@ -81,6 +72,10 @@ export const gameboard = {
             console.log(`Player ${winnerColor} wins!`)
           }
         }
+        data.field.rows.forEach(element => {
+          element.value && $(`#preHor${element.row}${element.col}`).replaceWith("<div class='takenLineHor'></div>")})
+        data.field.cols.forEach(element => {
+          element.value && $(`#preVer${element.row}${element.col}`).replaceWith("<div class='takenLineVer'></div>")})
       })
     }    
   },
