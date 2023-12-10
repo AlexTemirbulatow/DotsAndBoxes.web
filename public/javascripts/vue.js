@@ -11,8 +11,7 @@ const gameboard = Vue.createApp({
       cols: [],
       status: [],
       gameEnded: false,
-      winner: 'undefined',
-      statusValue: 'undefined'
+      winner: 'undefined'
     }
   },
   mounted() {
@@ -22,11 +21,11 @@ const gameboard = Vue.createApp({
       gameboard.playerSize = data.field.playerSize
       gameboard.currentPlayer = data.field.currentPlayer
       gameboard.playerList = data.field.playerList
-      gameboard.gameEnded = data.field.gameEnded
-      gameboard.winner = data.field.winner
       gameboard.rows = data.field.rows
       gameboard.cols = data.field.cols
       gameboard.status = data.field.status
+      gameboard.gameEnded = data.field.gameEnded
+      gameboard.winner = data.field.winner
     })
   },
   created() {
@@ -40,13 +39,40 @@ const gameboard = Vue.createApp({
       this.websocket.onmessage = function(msg) {
         if (typeof msg.data === "string") {
           const data = JSON.parse(msg.data)
-          //TODO
+          gameboard.updateBoard()
+
+          $.each(data.field.rows, function(_, element) {
+            let x = element.row
+            let y = element.col
+            if (!element.value) {
+              $(`#preHor${x}${y}`).html(
+                `<button @click='doMove(1,${x},${y})' class='preBorderHor' :id='preHor${x}${y}'>
+                  <div class='preLineHor'></div>
+                </button>`
+              )
+            } else {
+              $(`#preHor${x}${y}`).replaceWith("<div class='takenLineHor'></div>")
+            }
+          })
+          $.each(data.field.cols, function(_, element) {
+            let x = element.row
+            let y = element.col
+            if (!element.value) {
+              $(`#preVer${x}${y}`).html(
+                `<button @click='doMove(2,${x},${y})' class='preBorderVer' :id='preVer${x}${y}'>
+                  <div class='preLineVer'></div>
+                </button>`
+              )
+            } else {
+              $(`#preVer${x}${y}`).replaceWith("<div class='takenLineVer'></div>")
+            }
+          })
         }
       }
     },
     matchingValue(direction, row, col) {
       return !!((direction === 'hor' ? this.rows : this.cols)
-        .find(item => item.row === row && item.col === col && item.value === true));
+        .find(item => item.row === row && item.col === col && item.value === true))
     },
     matchingStatus(row, col) {
       return (this.status.find((item) => item.row === row && item.col === col)).value
@@ -58,12 +84,12 @@ const gameboard = Vue.createApp({
       return {0:"Blue",1:"Red",2:"Green",3:"Yellow"}[index]
     },
     doMove(index, x, y) {
-      console.log(`move: ${index}${x}${y}`)
       $.get(`/game/move/${index}${x}${y}`, function() {
         let direction = index === 1 ? "#preHor" : "#preVer"
         $(`${direction}${x}${y}`).replaceWith(`<div class='takenLine${index === 1 ? "Hor" : "Ver"}'></div>`)
         gameboard.updateBoard()
       })
+      console.log(`move: ${index}${x}${y}`)
     },
     updateBoard() {
       $.get("/game/json", data => {
@@ -91,7 +117,7 @@ const gameboard = Vue.createApp({
             console.log(`Player ${winnerColor} wins!`)
           }
         }
-        data.field.playerList.forEach((element, playerIndex) => $(`#player${playerIndex}`).find('h2').html(element.points)); 
+        data.field.playerList.forEach((element, playerIndex) => $(`#player${playerIndex}`).find('h2').html(element.points)) 
       })
     }
   },
@@ -131,12 +157,12 @@ const gameboard = Vue.createApp({
         </template>
         <div class="dot"></div>
 
-        <template v-for="col in rowSize+1">
+        <template v-for="col in (rowSize+1)">
           <div v-if="matchingValue('ver', (row-1), (col-1)) === true" class="takenLineVer"></div>
           <button @click='doMove(2, (row-1), (col-1))' v-else class="preBorderVer" :id="'preVer' + (row-1) + (col-1)">
             <div class="preLineVer"></div>
           </button>
-          <template v-if="col !== rowSize+1">
+          <template v-if="col !== (rowSize+1)">
             <div :class="'square' + matchingStatus((row-1), (col-1))" :id="'cell' + matchingStatus((row-1), (col-1)) + (row-1) + (col-1)"></div>
           </template>
         </template>
