@@ -4,7 +4,6 @@ const gameboard = Vue.createApp({
       websocket: new WebSocket("ws://localhost:9000/websocket"),
       rowSize: 0,
       colSize: 0,
-      playerSize: 0,
       currentPlayer: 0,
       playerList: [],
       rows: [],
@@ -15,21 +14,8 @@ const gameboard = Vue.createApp({
     }
   },
   mounted() {
-    $.get("/game/json", function(data) {
-      gameboard.rowSize = data.field.rowSize
-      gameboard.colSize = data.field.colSize
-      gameboard.playerSize = data.field.playerSize
-      gameboard.currentPlayer = data.field.currentPlayer
-      gameboard.playerList = data.field.playerList
-      gameboard.rows = data.field.rows
-      gameboard.cols = data.field.cols
-      gameboard.status = data.field.status
-      gameboard.gameEnded = data.field.gameEnded
-      gameboard.winner = data.field.winner
-    })
-  },
-  created() {
     this.connectWebSocket()
+    $.get("/game/json", data => { Object.assign(this, data.field) })
   },
   methods: {
     connectWebSocket() {
