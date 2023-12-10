@@ -1,4 +1,4 @@
-const gameboard = Vue.createApp({
+export const gameboard = {
   data() {
     return {
       websocket: new WebSocket("ws://localhost:9000/websocket"),
@@ -25,7 +25,7 @@ const gameboard = Vue.createApp({
       this.websocket.onmessage = msg => {
         if (typeof msg.data === "string") {
           const data = JSON.parse(msg.data)
-          gameboard.updateBoard()
+          this.updateBoard()
           data.field.rows.forEach(element => {
             element.value && $(`#preHor${element.row}${element.col}`).replaceWith("<div class='takenLineHor'></div>")})
           data.field.cols.forEach(element => {
@@ -48,10 +48,10 @@ const gameboard = Vue.createApp({
     },
     doMove(index, x, y) {
       console.log(`move: ${index}${x}${y}`)
-      $.get(`/game/move/${index}${x}${y}`, function() {
+      $.get(`/game/move/${index}${x}${y}`, () => {
         const direction = index === 1 ? "#preHor" : "#preVer"
         $(`${direction}${x}${y}`).replaceWith(`<div class='takenLine${index === 1 ? "Hor" : "Ver"}'></div>`)
-        gameboard.updateBoard()
+        this.updateBoard()
       })
     },
     updateBoard() {
@@ -63,12 +63,12 @@ const gameboard = Vue.createApp({
           2: "/assets/images/playerGreen.png",
           3: "/assets/images/playerYellow.png"
         }
-        data.field.playerList.forEach((element, playerIndex) => $(`#player${playerIndex}`).find('h2').html(element.points)) 
+        data.field.playerList.forEach((element, playerIndex) => $(`#player${playerIndex}`).find('h2').html(element.points))
         $.each(data.field.status, (_, element) =>
           $(`#cell-${element.row}${element.col}`).html(`<div class='${statusMapping[element.value]}'></div>`)
         )
         if (!data.field.gameEnded) {
-          $("#turn").html($(`<img src='${playerMapping[data.field.currentPlayer]}'>`).clone()).append("<h1>Turn</h1>")
+          $("#turn").html($(`<img src='${playerMapping[data.field.currentPlayer]}'>`)).append("<h1>Turn</h1>")
         } else {
           const winner = data.field.winner
           if (winner === "It's a draw!") {
@@ -77,12 +77,12 @@ const gameboard = Vue.createApp({
           } else {
             const winnerColor = winner.split(" ")[1].toLowerCase()
             const winnerIndex = {"blue":0,"red":1,"green":2,"yellow":3}[winnerColor]
-            $("#turn").html($(`<img src='${playerMapping[winnerIndex]}'>`).clone()).append("<h1>wins!</h1>")
+            $("#turn").html($(`<img src='${playerMapping[winnerIndex]}'>`)).append("<h1>wins!</h1>")
             console.log(`Player ${winnerColor} wins!`)
           }
         }
       })
-    }
+    }    
   },
   template:
   `
@@ -152,4 +152,4 @@ const gameboard = Vue.createApp({
       </div>
     </div>
   `
-}).mount('#gameboard')
+}
