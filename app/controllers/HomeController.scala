@@ -19,7 +19,7 @@ class HomeController @Inject()(cc: ControllerComponents) (implicit system: Actor
   def getField = controller.toString
 
   def home = Action { Ok(views.html.index()) }
-  def game = Action { Ok(views.html.field(controller)) }
+  def game = Action { Ok(views.html.field()) }
   def tui  = Action { Ok(getField) }
 
   def move(input: String): Action[AnyContent] = Action {
@@ -27,24 +27,24 @@ class HomeController @Inject()(cc: ControllerComponents) (implicit system: Actor
     val move: Move = Move(chars(0).toString.toInt,
     chars(1).toString.toInt, chars(2).toString.toInt, true)
     controller.publish(controller.put, move)
-    Ok(views.html.field(controller))
+    Ok(views.html.field())
   }
 
   def save = Action {
     controller.save
-    Ok(views.html.field(controller))
+    Ok(views.html.field())
   }
   def load = Action {
     controller.load
-    Ok(views.html.field(controller))
+    Ok(views.html.field())
   }
   def undo = Action {
     controller.publish(controller.undo)
-    Ok(views.html.field(controller))
+    Ok(views.html.field())
   }
   def redo = Action {
     controller.publish(controller.redo)
-    Ok(views.html.field(controller))
+    Ok(views.html.field())
   }
 
   def gameToJson = Action {
