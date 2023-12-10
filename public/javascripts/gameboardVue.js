@@ -100,10 +100,10 @@ export const gameboard = {
     <div class="containerh pt-5 pb-3">
       <template v-if="!gameEnded">
         <div class="playerTurnImg" id="turn">
-          <img v-if="currentPlayer === 0" src='/assets/images/playerBlue.png'>
-          <img v-else-if="currentPlayer === 1" src='/assets/images/playerRed.png'>
-          <img v-else-if="currentPlayer === 2" src='/assets/images/playerGreen.png'>
-          <img v-else-if="currentPlayer === 3" src='/assets/images/playerYellow.png'>
+          <img v-if="currentPlayer === 0" src='assets/images/playerBlue.png'>
+          <img v-else-if="currentPlayer === 1" src='assets/images/playerRed.png'>
+          <img v-else-if="currentPlayer === 2" src='assets/images/playerGreen.png'>
+          <img v-else-if="currentPlayer === 3" src='assets/images/playerYellow.png'>
           <h1>Turn</h1>
         </div>
       </template>
@@ -113,7 +113,7 @@ export const gameboard = {
             <h1>It's a draw!</h1>
           </template>
           <template v-else>
-            <img :src="'/assets/images/player' + matchingWinner() + '.png'">
+            <img :src="'assets/images/player' + matchingWinner() + '.png'">
             <h1>wins!</h1>
           </template>
         </div>
@@ -156,7 +156,7 @@ export const gameboard = {
       <div id="scoreboard">
         <template v-for="player in playerList">
         <div class="player" :id="'player' + player.index">
-          <img :src="'/assets/images/player' + matchingPlayer(player.index) + '.png'">
+          <img :src="'assets/images/player' + matchingPlayer(player.index) + '.png'">
           <h2>{{ player.points }}</h2>
         </div>
         </template>

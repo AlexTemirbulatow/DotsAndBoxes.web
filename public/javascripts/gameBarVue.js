@@ -15,7 +15,7 @@ export const gameBar = {
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container">
         <a class="navbar-brand fs-4 my-2" href="http://localhost:9000">
-          <img src="/assets/images/0_Logo.png" width="13%" alt="Logo">
+          <img src="assets/images/0_Logo.png" width="13%" alt="Logo">
           <span class="logo p-3">Dots And Boxes</span>
         </a>
         <button 
