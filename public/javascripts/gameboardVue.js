@@ -96,7 +96,6 @@ export const gameboard = {
             $(`#preVer${x}${y}`).replaceWith(`<div class='takenLineVer' id='takenVer${x}${y}'></div>`)
           }
         })
-  
       })
     }    
   },
