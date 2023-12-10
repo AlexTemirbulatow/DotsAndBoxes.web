@@ -40,19 +40,19 @@ const gameboard = Vue.createApp({
       this.websocket.onmessage = function(msg) {
         if (typeof msg.data === "string") {
           const data = JSON.parse(msg.data)
-          
+          //TODO
         }
       }
     },
     matchingValue(direction, row, col) {
-      if (direction === 'hor') {
-        return !!(this.rows.find((item) => item.row === row && item.col === col && item.value === true))
-      } else {
-        return !!(this.cols.find((item) => item.row === row && item.col === col && item.value === true))
-      }
+      return !!((direction === 'hor' ? this.rows : this.cols)
+        .find(item => item.row === row && item.col === col && item.value === true));
     },
     matchingStatus(row, col) {
       return (this.status.find((item) => item.row === row && item.col === col)).value
+    },
+    matchingWinner() {
+      return this.winner.split(" ")[1]
     },
     doMove(index, x, y) {
       console.log(`move: ${index}${x}${y}`)
@@ -65,67 +65,55 @@ const gameboard = Vue.createApp({
     updateBoard() {
       $.get("/game/json", data => {
         const statusMapping = { "-": "square-", "B": "squareB", "R": "squareR", "G": "squareG", "Y": "squareY" }
-        const currPlayerMapping = { 
+        const playerMapping = { 
           0: "/assets/images/playerBlue.png",
           1: "/assets/images/playerRed.png",
           2: "/assets/images/playerGreen.png",
           3: "/assets/images/playerYellow.png"
         }
-
         $.each(data.field.status, (_, element) =>
           $(`#cell-${element.row}${element.col}`).html(`<div class='${statusMapping[element.value]}'></div>`)
         )
         if (!data.field.gameEnded) {
-          $("#turn").html($(`<img src='${currPlayerMapping[data.field.currentPlayer]}'>`).clone()).append("<h1>Turn</h1>")
-        }
-
-        /*else {
+          $("#turn").html($(`<img src='${playerMapping[data.field.currentPlayer]}'>`).clone()).append("<h1>Turn</h1>")
+        } else {
           const winner = data.field.winner
-          if (winner === "It's a draw!b") {
-            console.log("It's a draw!")
+          if (winner === "It's a draw!") {
             $("#turn").html(`<h1>${winner}</h1>`)
+            console.log("It's a draw!")
           } else {
-            const playerColor = winner.match(/Player (\w+) wins!/)[1]
-            console.log(`${winner} wins!`)
-            $("#turn").html($(`#img${playerColor}`).clone().add(`<h1>${winner} wins!b</h1>`))
+            const winnerColor = winner.split(" ")[1].toLowerCase()
+            const winnerIndex = {"blue":0,"red":1,"green":2,"yellow":3}[winnerColor]
+            $("#turn").html($(`<img src='${playerMapping[winnerIndex]}'>`).clone()).append("<h1>wins!</h1>")
+            console.log(`Player ${winnerColor} wins!`)
           }
-        }*/
-          /*else {
-            switch (data.field.winner) {
-              case "Player Blue wins!":
-                displayWinner("Player Blue", $("#imgBlue"))
-                break
-              case "Player Red wins!":
-                displayWinner("Player Red", $("#imgRed"))
-                break
-              case "Player Green wins!":
-                displayWinner("Player Green", $("#imgGreen"))
-                break
-              case "Player Yellow wins!":
-                displayWinner("Player Yellow", $("#imgYellow"))
-                break
-              case "It's a draw!":
-                console.log("It's a draw!")
-                $("#turn").html("<h1>It's a draw!</h1>")
-                break
-              default:
-            }
-          }*/
-        
-        
+        }
       })
     }
   },
   template:
   `
     <div class="containerh pt-5 pb-3">
-      <div class="playerTurnImg" id="turn">
-        <img id="imgBlue" v-if="currentPlayer === 0" src='/assets/images/playerBlue.png'>
-        <img id="imgRed" v-else-if="currentPlayer === 1" src='/assets/images/playerRed.png'>
-        <img id="imgGreen" v-else-if="currentPlayer === 2" src='/assets/images/playerGreen.png'>
-        <img id="imgYellow" v-else-if="currentPlayer === 3" src='/assets/images/playerYellow.png'>
-        <h1>Turn</h1>
-      </div>
+      <template v-if="!gameEnded">
+        <div class="playerTurnImg" id="turn">
+          <img v-if="currentPlayer === 0" src='/assets/images/playerBlue.png'>
+          <img v-else-if="currentPlayer === 1" src='/assets/images/playerRed.png'>
+          <img v-else-if="currentPlayer === 2" src='/assets/images/playerGreen.png'>
+          <img v-else-if="currentPlayer === 3" src='/assets/images/playerYellow.png'>
+          <h1>Turn</h1>
+        </div>
+      </template>
+      <template v-else>
+        <div class="playerWonImg">
+          <template v-if="winner === 'It\\'s a draw!'">
+            <h1>It's a draw!</h1>
+          </template>
+          <template v-else>
+            <img :src="'/assets/images/player' + matchingWinner() + '.png'">
+            <h1>wins!</h1>
+          </template>
+        </div>
+      </template>
     </div>
 
     <div id="board">
