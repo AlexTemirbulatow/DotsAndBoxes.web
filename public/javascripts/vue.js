@@ -34,39 +34,16 @@ const gameboard = Vue.createApp({
   methods: {
     connectWebSocket() {
       this.websocket.onopen = () => console.log("Successfully connected to WebSocket")
-      this.websocket.onclose = () => console.log("Connection with WebSocket2 closed!")
+      this.websocket.onclose = () => console.log("Connection with WebSocket closed!")
       this.websocket.onerror = (error) => console.log("Error in WebSocket occurred: " + error)
-      this.websocket.onmessage = function(msg) {
+      this.websocket.onmessage = msg => {
         if (typeof msg.data === "string") {
           const data = JSON.parse(msg.data)
           gameboard.updateBoard()
-
-          $.each(data.field.rows, function(_, element) {
-            let x = element.row
-            let y = element.col
-            if (!element.value) {
-              $(`#preHor${x}${y}`).html(
-                `<button @click='doMove(1,${x},${y})' class='preBorderHor' :id='preHor${x}${y}'>
-                  <div class='preLineHor'></div>
-                </button>`
-              )
-            } else {
-              $(`#preHor${x}${y}`).replaceWith("<div class='takenLineHor'></div>")
-            }
-          })
-          $.each(data.field.cols, function(_, element) {
-            let x = element.row
-            let y = element.col
-            if (!element.value) {
-              $(`#preVer${x}${y}`).html(
-                `<button @click='doMove(2,${x},${y})' class='preBorderVer' :id='preVer${x}${y}'>
-                  <div class='preLineVer'></div>
-                </button>`
-              )
-            } else {
-              $(`#preVer${x}${y}`).replaceWith("<div class='takenLineVer'></div>")
-            }
-          })
+          data.field.rows.forEach(element => {
+            element.value && $(`#preHor${element.row}${element.col}`).replaceWith("<div class='takenLineHor'></div>")})
+          data.field.cols.forEach(element => {
+            element.value && $(`#preVer${element.row}${element.col}`).replaceWith("<div class='takenLineVer'></div>")})
         }
       }
     },
@@ -84,12 +61,12 @@ const gameboard = Vue.createApp({
       return {0:"Blue",1:"Red",2:"Green",3:"Yellow"}[index]
     },
     doMove(index, x, y) {
+      console.log(`move: ${index}${x}${y}`)
       $.get(`/game/move/${index}${x}${y}`, function() {
-        let direction = index === 1 ? "#preHor" : "#preVer"
+        const direction = index === 1 ? "#preHor" : "#preVer"
         $(`${direction}${x}${y}`).replaceWith(`<div class='takenLine${index === 1 ? "Hor" : "Ver"}'></div>`)
         gameboard.updateBoard()
       })
-      console.log(`move: ${index}${x}${y}`)
     },
     updateBoard() {
       $.get("/game/json", data => {
@@ -100,6 +77,7 @@ const gameboard = Vue.createApp({
           2: "/assets/images/playerGreen.png",
           3: "/assets/images/playerYellow.png"
         }
+        data.field.playerList.forEach((element, playerIndex) => $(`#player${playerIndex}`).find('h2').html(element.points)) 
         $.each(data.field.status, (_, element) =>
           $(`#cell-${element.row}${element.col}`).html(`<div class='${statusMapping[element.value]}'></div>`)
         )
@@ -117,7 +95,6 @@ const gameboard = Vue.createApp({
             console.log(`Player ${winnerColor} wins!`)
           }
         }
-        data.field.playerList.forEach((element, playerIndex) => $(`#player${playerIndex}`).find('h2').html(element.points)) 
       })
     }
   },
