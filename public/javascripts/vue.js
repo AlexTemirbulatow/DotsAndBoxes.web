@@ -54,6 +54,9 @@ const gameboard = Vue.createApp({
     matchingWinner() {
       return this.winner.split(" ")[1]
     },
+    matchingPlayer(index) {
+      return {0:"Blue",1:"Red",2:"Green",3:"Yellow"}[index]
+    },
     doMove(index, x, y) {
       console.log(`move: ${index}${x}${y}`)
       $.get(`/game/move/${index}${x}${y}`, function() {
@@ -146,6 +149,17 @@ const gameboard = Vue.createApp({
         </button>
       </template>
       <div class="dot"></div> 
+    </div>
+
+  	<div class="container3 mb-5">
+      <div id="scoreboard">
+        <template v-for="player in playerList">
+        <div class="player">
+          <img :src="'/assets/images/player' + matchingPlayer(player.index) + '.png'">
+          <h2>{{ player.points }}</h2>
+        </div>
+        </template>
+      </div>
     </div>
   `
 }).mount('#gameboard')
