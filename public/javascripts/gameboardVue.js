@@ -73,9 +73,30 @@ export const gameboard = {
           }
         }
         data.field.rows.forEach(element => {
-          element.value && $(`#preHor${element.row}${element.col}`).replaceWith("<div class='takenLineHor'></div>")})
+          const [x, y] = [element.row, element.col]
+          if(!element.value) {
+            $(`#takenHor${x}${y}`).replaceWith(
+              $(`<button class="preBorderHor" id="preHor${x}${y}">
+                  <div class="preLineHor"></div>
+                </button>`).click(() => this.doMove(1, x, y))
+            )
+          } else {
+            $(`#preHor${x}${y}`).replaceWith(`<div class='takenLineHor' id='takenHor${x}${y}'></div>`)
+          }
+        })
         data.field.cols.forEach(element => {
-          element.value && $(`#preVer${element.row}${element.col}`).replaceWith("<div class='takenLineVer'></div>")})
+          const [x, y] = [element.row, element.col]
+          if (!element.value) {
+            $(`#takenVer${x}${y}`).replaceWith(
+              $(`<button class="preBorderVer" id="preVer${x}${y}">
+                  <div class="preLineVer"></div>
+                </button>`).click(() => this.doMove(2, x, y))
+            )
+          } else {
+            $(`#preVer${x}${y}`).replaceWith(`<div class='takenLineVer' id='takenVer${x}${y}'></div>`)
+          }
+        })
+  
       })
     }    
   },
@@ -108,28 +129,28 @@ export const gameboard = {
       <template v-for="row in colSize">
         <template v-for="col in rowSize">
           <div class="dot"></div>
-          <div v-if="matchingValue('hor', (row-1), (col-1)) === true" class="takenLineHor"></div>
-          <button @click='doMove(1, (row-1), (col-1))' v-else class="preBorderHor" :id="'preHor' + (row-1) + (col-1)">
+          <div v-if="matchingValue('hor',(row-1),(col-1)) === true" class="takenLineHor" :id="'takenHor'+(row-1)+(col-1)"></div>
+          <button @click='doMove(1,(row-1),(col-1))' v-else class="preBorderHor" :id="'preHor'+(row-1)+(col-1)">
             <div class="preLineHor"></div>
           </button>
         </template>
         <div class="dot"></div>
 
         <template v-for="col in (rowSize+1)">
-          <div v-if="matchingValue('ver', (row-1), (col-1)) === true" class="takenLineVer"></div>
-          <button @click='doMove(2, (row-1), (col-1))' v-else class="preBorderVer" :id="'preVer' + (row-1) + (col-1)">
+          <div v-if="matchingValue('ver',(row-1),(col-1)) === true" class="takenLineVer" :id="'takenVer'+(row-1)+(col-1)"></div>
+          <button @click='doMove(2,(row-1),(col-1))' v-else class="preBorderVer" :id="'preVer'+(row-1)+(col-1)">
             <div class="preLineVer"></div>
           </button>
           <template v-if="col !== (rowSize+1)">
-            <div :class="'square' + matchingStatus((row-1), (col-1))" :id="'cell' + matchingStatus((row-1), (col-1)) + (row-1) + (col-1)"></div>
+            <div :class="'square' + matchingStatus((row-1),(col-1))" :id="'cell' + matchingStatus((row-1),(col-1))+(row-1)+(col-1)"></div>
           </template>
         </template>
       </template>
 
       <template v-for="col in rowSize">
         <div class="dot"></div>
-        <div v-if="matchingValue('hor', colSize, (col-1)) === true" class="takenLineHor"></div>
-        <button @click='doMove(1, colSize, (col-1))' v-else class="preBorderHor" :id="'preHor' + colSize + (col-1)">
+        <div v-if="matchingValue('hor',colSize,(col-1)) === true" class="takenLineHor" :id="'takenHor'+(row-1)+(col-1)"></div>
+        <button @click='doMove(1,colSize,(col-1))' v-else class="preBorderHor" :id="'preHor'+colSize+(col-1)">
           <div class="preLineHor"></div>
         </button>
       </template>

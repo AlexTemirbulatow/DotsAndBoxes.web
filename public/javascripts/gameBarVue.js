@@ -2,17 +2,11 @@ export const gameBar = {
   methods: {
     navigate(type) {
       console.log(`move: ${type}`)
-      $.get(`/game/move/${type}`, () => { 
-        //this.gameboardRef.updateBoard() 
-      })
+      $.get(`/game/move/${type}`, () => {})
     },
     synchronize(type) {
-      $.get(`/game/${type}`, () => {
-        if(type === "load") {
-          //this.gameboardRef.updateBoard() 
-        }
-        console.log(type === "load" ? "Loading last gamestate." : "Saving current gamestate.")
-      })
+      console.log(type === "load" ? "Loading last gamestate." : "Saving current gamestate.")
+      $.get(`/game/${type}`, () => {})
     }
   },
   template:
