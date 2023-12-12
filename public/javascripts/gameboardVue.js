@@ -13,7 +13,7 @@ export const gameboard = {
       winner: 'undefined'
     }
   },
-  mounted() {
+  created() {
     this.connectWebSocket()
     $.get("/game/json", data => { Object.assign(this, data.field) })
   },
@@ -51,9 +51,10 @@ export const gameboard = {
           3: "/assets/images/playerYellow.png"
         }
         data.field.playerList.forEach((element, playerIndex) => $(`#player${playerIndex}`).find('h2').html(element.points))
-        $.each(data.field.status, (_, element) =>
-          $(`#cell-${element.row}${element.col}`).html(`<div class='${statusMapping[element.value]}'></div>`)
-        )
+        data.field.status.forEach(element => {
+          const [value, row, col] = [element.value, element.row, element.col]
+          $(`#cell${row}${col}`).replaceWith(`<div class='${statusMapping[value]}' id='cell${row}${col}'></div>`)
+        })
         if (!data.field.gameEnded) {
           $("#turn").html($(`<img src='${playerMapping[data.field.currentPlayer]}'>`)).append("<h1>Turn</h1>")
         } else {
@@ -137,7 +138,7 @@ export const gameboard = {
             <div class="preLineVer"></div>
           </button>
           <template v-if="col !== (rowSize+1)">
-            <div :class="'square' + matchingStatus((row-1),(col-1))" :id="'cell' + matchingStatus((row-1),(col-1))+(row-1)+(col-1)"></div>
+            <div :class="'square' + matchingStatus((row-1),(col-1))" :id="'cell'+(row-1)+(col-1)"></div>
           </template>
         </template>
       </template>
