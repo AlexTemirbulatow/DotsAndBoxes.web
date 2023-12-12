@@ -44,7 +44,6 @@ export const gameBar = {
           tabindex="-1"
           id="offcanvasNavbar"
           aria-labelledby="offcanvasNavbarLabel">
-          <!-- Sidebar Header -->
           <div class="offcanvas-header text-white border-bottom">
             <h5 class="offcanvas-title"
             id="offcanvasNavbarLabel">Menu</h5>
@@ -59,13 +58,13 @@ export const gameBar = {
             <ul class="navbar-nav justify-content-center
             align-items-center fs-5 flex-grow-1 pe-3">
               <li class="nav-item mx-2">
-              <a class="nav-link" @click="displayIndex" type="button">Home</a>
+                <a class="nav-link" @click="displayIndex" type="button">Home</a>
               </li>
               <li class="nav-item mx-2">
-              <a class="nav-link active" aria-current="page" type="button">Game</a>
+                <a class="nav-link active" aria-current="page" type="button">Game</a>
               </li>
               <li class="nav-item mx-2">
-              <a class="nav-link" @click="scrollHandler('rules')" type="button">Rules</a>
+                <a class="nav-link" @click="scrollHandler('rules')" type="button">Rules</a>
               </li>
               <li class="nav-item mx-2">
                 <a class="nav-link" @click="scrollHandler('github')" type="button">GitHub</a>

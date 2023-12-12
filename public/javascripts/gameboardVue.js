@@ -127,7 +127,7 @@ export const gameboard = {
           <div class="dot"></div>
           <div v-if="matchingValue('hor',(row-1),(col-1)) === true" class="takenLineHor" :id="'takenHor'+(row-1)+(col-1)"></div>
           <button @click='doMove(1,(row-1),(col-1))' v-else class="preBorderHor" :id="'preHor'+(row-1)+(col-1)">
-            <div class="preLineHor"></div>
+          <div class="preLineHor"></div>
           </button>
         </template>
         <div class="dot"></div>
@@ -156,10 +156,10 @@ export const gameboard = {
   	<div class="container3 mb-5">
       <div id="scoreboard">
         <template v-for="player in playerList">
-        <div class="player" :id="'player' + player.index">
-          <img :src="'assets/images/player' + matchingPlayer(player.index) + '.png'">
-          <h2>{{ player.points }}</h2>
-        </div>
+          <div class="player" :id="'player' + player.index">
+            <img :src="'assets/images/player' + matchingPlayer(player.index) + '.png'">
+            <h2>{{ player.points }}</h2>
+          </div>
         </template>
       </div>
     </div>

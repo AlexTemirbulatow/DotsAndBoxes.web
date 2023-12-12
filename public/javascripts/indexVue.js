@@ -17,16 +17,16 @@ export const index = {
             <img src="assets/images/0_Logo.png" width="13%" alt="Logo">
             <span class="logo p-3">Dots And Boxes</span>
           </a>
-        <button 
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasNavbar"
-            aria-controls="offcanvasNavbar"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="sidebar offcanvas offcanvas-start"
+          <button 
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasNavbar"
+              aria-controls="offcanvasNavbar"
+              aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="sidebar offcanvas offcanvas-start"
             tabindex="-1"
             id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel">
@@ -42,9 +42,7 @@ export const index = {
             </div>
             <!-- Sidebar Body -->
             <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
-              <ul class="navbar-nav justify-content-center
-            align-items-center fs-5 flex-grow-1 pe-3">
-
+              <ul class="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1 pe-3">
                 <li class="nav-item mx-2">
                   <a class="nav-link active" aria-current="page" type="button">Home</a>
                 </li>
@@ -57,9 +55,9 @@ export const index = {
                 <li class="nav-item mx-2">
                   <a class="nav-link" @click="scrollHandler('github')" type="button">GitHub</a>
                 </li>
-            </ul>
+              </ul>
             </div>
-        </div>
+          </div>
         </div>
       </nav>
 
