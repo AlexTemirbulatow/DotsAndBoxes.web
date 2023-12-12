@@ -16,35 +16,32 @@ import de.htwg.se.dotsandboxes.controller.controllerComponent.controllerImpl.Con
 @Singleton
 class HomeController @Inject()(cc: ControllerComponents) (implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc):
   val controller = new Controller()
-  def getField = controller.toString
 
-  def home = Action { Ok(views.html.index()) }
-  def game = Action { Ok(views.html.field()) }
-  def tui  = Action { Ok(getField) }
+  def home = Action { Ok(views.html.main("Dots And Boxes")) }
 
   def move(input: String): Action[AnyContent] = Action {
     val chars = input.toCharArray
     val move: Move = Move(chars(0).toString.toInt,
     chars(1).toString.toInt, chars(2).toString.toInt, true)
     controller.publish(controller.put, move)
-    Ok(views.html.field())
+    Ok("success")
   }
 
   def save = Action {
     controller.save
-    Ok(views.html.field())
+    Ok("success")
   }
   def load = Action {
     controller.load
-    Ok(views.html.field())
+    Ok("success")
   }
   def undo = Action {
     controller.publish(controller.undo)
-    Ok(views.html.field())
+    Ok("success")
   }
   def redo = Action {
     controller.publish(controller.redo)
-    Ok(views.html.field())
+    Ok("success")
   }
 
   def gameToJson = Action {

@@ -13,7 +13,7 @@ export const gameboard = {
       winner: 'undefined'
     }
   },
-  mounted() {
+  created() {
     this.connectWebSocket()
     $.get("/game/json", data => { Object.assign(this, data.field) })
   },
@@ -51,9 +51,10 @@ export const gameboard = {
           3: "/assets/images/playerYellow.png"
         }
         data.field.playerList.forEach((element, playerIndex) => $(`#player${playerIndex}`).find('h2').html(element.points))
-        $.each(data.field.status, (_, element) =>
-          $(`#cell-${element.row}${element.col}`).html(`<div class='${statusMapping[element.value]}'></div>`)
-        )
+        data.field.status.forEach(element => {
+          const [value, row, col] = [element.value, element.row, element.col]
+          $(`#cell${row}${col}`).replaceWith(`<div class='${statusMapping[value]}' id='cell${row}${col}'></div>`)
+        })
         if (!data.field.gameEnded) {
           $("#turn").html($(`<img src='${playerMapping[data.field.currentPlayer]}'>`)).append("<h1>Turn</h1>")
         } else {
@@ -100,10 +101,10 @@ export const gameboard = {
     <div class="containerh pt-5 pb-3">
       <template v-if="!gameEnded">
         <div class="playerTurnImg" id="turn">
-          <img v-if="currentPlayer === 0" src='/assets/images/playerBlue.png'>
-          <img v-else-if="currentPlayer === 1" src='/assets/images/playerRed.png'>
-          <img v-else-if="currentPlayer === 2" src='/assets/images/playerGreen.png'>
-          <img v-else-if="currentPlayer === 3" src='/assets/images/playerYellow.png'>
+          <img v-if="currentPlayer === 0" src='assets/images/playerBlue.png'>
+          <img v-else-if="currentPlayer === 1" src='assets/images/playerRed.png'>
+          <img v-else-if="currentPlayer === 2" src='assets/images/playerGreen.png'>
+          <img v-else-if="currentPlayer === 3" src='assets/images/playerYellow.png'>
           <h1>Turn</h1>
         </div>
       </template>
@@ -113,7 +114,7 @@ export const gameboard = {
             <h1>It's a draw!</h1>
           </template>
           <template v-else>
-            <img :src="'/assets/images/player' + matchingWinner() + '.png'">
+            <img :src="'assets/images/player' + matchingWinner() + '.png'">
             <h1>wins!</h1>
           </template>
         </div>
@@ -126,7 +127,7 @@ export const gameboard = {
           <div class="dot"></div>
           <div v-if="matchingValue('hor',(row-1),(col-1)) === true" class="takenLineHor" :id="'takenHor'+(row-1)+(col-1)"></div>
           <button @click='doMove(1,(row-1),(col-1))' v-else class="preBorderHor" :id="'preHor'+(row-1)+(col-1)">
-            <div class="preLineHor"></div>
+          <div class="preLineHor"></div>
           </button>
         </template>
         <div class="dot"></div>
@@ -137,7 +138,7 @@ export const gameboard = {
             <div class="preLineVer"></div>
           </button>
           <template v-if="col !== (rowSize+1)">
-            <div :class="'square' + matchingStatus((row-1),(col-1))" :id="'cell' + matchingStatus((row-1),(col-1))+(row-1)+(col-1)"></div>
+            <div :class="'square' + matchingStatus((row-1),(col-1))" :id="'cell'+(row-1)+(col-1)"></div>
           </template>
         </template>
       </template>
@@ -155,10 +156,10 @@ export const gameboard = {
   	<div class="container3 mb-5">
       <div id="scoreboard">
         <template v-for="player in playerList">
-        <div class="player" :id="'player' + player.index">
-          <img :src="'/assets/images/player' + matchingPlayer(player.index) + '.png'">
-          <h2>{{ player.points }}</h2>
-        </div>
+          <div class="player" :id="'player' + player.index">
+            <img :src="'assets/images/player' + matchingPlayer(player.index) + '.png'">
+            <h2>{{ player.points }}</h2>
+          </div>
         </template>
       </div>
     </div>
