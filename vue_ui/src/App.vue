@@ -1,101 +1,369 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated class="glossy">
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          aria-label="Menu"
-          icon="menu"
-        />
-
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
-      </q-toolbar>
+  <q-layout view="hHh lpR fFf">
+    <q-header elevated class="bg-primary text-white">
+      <q-tabs align="left" style="padding-left: 50px;">
+        <img src="images/0_Logo.png" alt="Logo" style="width: 4%;">
+        <h5 style="margin-left: 10px;">Dots And Boxes</h5>
+        <q-route-tab to="/" label="home" style="margin-left: 30%;" />
+        <q-route-tab to="game" label="game" />
+      </q-tabs>
     </q-header>
-
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      class="bg-grey-2"
-    >
-      <q-list>
-        <q-item-label header>Essential Links</q-item-label>
-        <q-item clickable tag="a" target="_blank" href="https://quasar.dev">
-          <q-item-section avatar>
-            <q-icon name="school" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Docs</q-item-label>
-            <q-item-label caption>quasar.dev</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://github.com/quasarframework/">
-          <q-item-section avatar>
-            <q-icon name="code" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Github</q-item-label>
-            <q-item-label caption>github.com/quasarframework</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://chat.quasar.dev">
-          <q-item-section avatar>
-            <q-icon name="chat" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Discord Chat Channel</q-item-label>
-            <q-item-label caption>chat.quasar.dev</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://forum.quasar.dev">
-          <q-item-section avatar>
-            <q-icon name="forum" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Forum</q-item-label>
-            <q-item-label caption>forum.quasar.dev</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://twitter.com/quasarframework">
-          <q-item-section avatar>
-            <q-icon name="rss_feed" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Twitter</q-item-label>
-            <q-item-label caption>@quasarframework</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </q-drawer>
-
     <q-page-container>
-      <HelloWorld />
+      <router-view />
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
 import { ref } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: 'LayoutDefault',
-
-  components: {
-    HelloWorld
-  },
-
-  setup () {
+  name: 'app',
+  setup() {
     return {
       leftDrawerOpen: ref(false)
     }
   }
 }
 </script>
+
+<style>
+body {
+  background-color: #100235;
+  background-blend-mode: multiply;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#dd {
+  background-color: #5b554f;
+}
+
+.header {
+  background: url('../../public/images/header.png');
+}
+
+.dab {
+  font-size: 8ex;
+}
+
+.mini {
+  font-family: "Lilita One", sans-serif;
+  font-size: 3vh;
+}
+
+h1,
+h3 {
+  font-family: "Agbalumo";
+  color: #d8d8d8;
+}
+
+h2,
+h4,
+h5 {
+  font-family: "Lilita One", sans-serif;
+  font-size: 5px;
+  color: #d8d8d8;
+}
+
+.logo {
+  font-family: "Agbalumo";
+  font-size: 2.5ex;
+}
+
+#playbtn {
+  font-family: Lilita One, sans-serif;
+  display: inline-block;
+  position: relative;
+  padding: 14px 40px;
+  margin-top: 20px;
+  color: #4a3e6dbc;
+  background-color: #0CFFE1;
+  box-shadow: 10px 10px 6px #4a3e6db6;
+  border-radius: 10px;
+  font-size: 30px;
+  font-weight: 500px;
+  letter-spacing: 3px;
+  text-transform: capitalize;
+  text-decoration: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+#playbtn span {
+  display: block;
+  width: 0px;
+  height: 0px;
+  background-color: #FF217C;
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease 0s, height 0.6s ease 0s;
+  z-index: -1;
+}
+
+#playbtn:hover span {
+  width: 562px;
+  height: 562px;
+}
+
+@media (max-width: 991px) {
+  body .sidebar {
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+  }
+}
+
+.navbar {
+  font-family: "Arial";
+  background-color: rgba(37, 37, 37, 0.545);
+}
+
+.operation {
+  color: #d8d8d8;
+  background: none;
+  border: none;
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+}
+
+.playerTurn {
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+.playerTurnImg {
+  background: none;
+  font-family: "Comic Sans MS", cursive;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: right;
+  grid-gap: 15px;
+}
+
+.playerWonImg {
+  background: none;
+  font-family: "Comic Sans MS", cursive;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: right;
+  grid-gap: 15px;
+}
+
+/*  ---- GAME BOARD ----  */
+
+#board {
+  width: 562px;
+  height: 462px;
+  background-color: rgba(158, 145, 133, 0.956);
+  border: 6px solid #5b554f;
+  border-radius: 10px;
+  margin: 0 auto;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dot {
+  background-color: #ededed;
+  border: 2px solid #f51818;
+  box-shadow: 2px 7px 0px #5b5b5bb5;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+
+.preBorderHor {
+  background: none;
+  width: 120px;
+  height: 30px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 -25px;
+  z-index: 0;
+}
+
+.preBorderHor:hover {
+  background-color: #5959594a;
+  box-shadow: 2px 7px 0px #5b5b5b;
+  width: 120px;
+  height: 30px;
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 -25px;
+}
+
+.preBorderHor:hover .preLineHor {
+  display: none;
+}
+
+.preLineHor {
+  background-color: #4c4c4c66;
+  width: 70px;
+  height: 4px;
+  justify-content: center;
+  align-items: center;
+}
+
+.takenLineHor {
+  background-color: #b5b5b5;
+  box-shadow: 2px 7px 0px #5b5b5b;
+  width: 120px;
+  height: 30px;
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 -25px;
+  z-index: 2;
+}
+
+.preBorderVer {
+  background: none;
+  width: 30px;
+  height: 120px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: -25px 0;
+  z-index: 0;
+}
+
+.preBorderVerHovered {
+  background-color: #5959594a;
+  box-shadow: 7px 0px 0px #5b5b5b;
+  width: 30px;
+  height: 120px;
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: -25px 0;
+
+  .preLineVer {
+    display: none;
+  }
+}
+
+.preLineVer {
+  background-color: #4c4c4c66;
+  width: 4px;
+  height: 70px;
+  justify-content: center;
+  align-items: center;
+}
+
+.preBorderVer:hover {
+  background-color: #5959594a;
+  box-shadow: 7px 0px 0px #5b5b5b;
+  width: 30px;
+  height: 120px;
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: -25px 0;
+}
+
+.preBorderVer:hover .preLineVer {
+  display: none;
+}
+
+.takenLineVer {
+  background-color: #b5b5b5;
+  box-shadow: 7px 0px 0px #5b5b5b;
+  width: 30px;
+  height: 120px;
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: -25px 0;
+  z-index: 2;
+}
+
+.verline {
+  background-color: #4c4c4c66;
+  width: 4px;
+  height: 70px;
+  justify-content: center;
+  align-items: center;
+}
+
+.square- {
+  background: none;
+  width: 70px;
+  height: 70px;
+}
+
+.squareB {
+  background-color: #69a3bc;
+  width: 70px;
+  height: 70px;
+}
+
+.squareR {
+  background-color: #bc6969;
+  width: 70px;
+  height: 70px;
+}
+
+.squareG {
+  background-color: #73bc69;
+  width: 70px;
+  height: 70px;
+}
+
+.squareY {
+  background-color: #bbbc69;
+  width: 70px;
+  height: 70px;
+}
+
+#scoreboard {
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 150px;
+}
+
+.player {
+  background-color: rgba(101, 101, 101, 0.274);
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #d4d4d415;
+  border-left: 0px;
+  padding-right: 15px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  margin: 0 40px;
+}
+
+.player img {
+  margin-right: 10px;
+  height: 50px;
+}
+</style>
