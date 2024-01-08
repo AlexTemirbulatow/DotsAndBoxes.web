@@ -1,6 +1,6 @@
 <template>
   <q-page class="text-header">
-    <h1 style="font-size: 4rem;">
+    <h1 class="main-title">
       <span class="mini">Minigame</span><br>
       Dots And Boxes
     </h1>
@@ -95,7 +95,6 @@ export default {
       this.$emit('display-game')
     }
   }
-
 }
 </script>
 
@@ -109,9 +108,50 @@ export default {
   text-align: center;
 }
 
-p {
-  color: aliceblue;
-  font-family: 'Segoe UI Light', sans-serif;
-  font-size: 20.8px;
+.main-title {
+  font-size: 4rem;
+  margin-bottom: 20px;
 }
+
+.mini {
+  font-family: "Lilita One", sans-serif;
+  font-size: 3vh;
+}
+
+#playbtn {
+  font-family: Lilita One, sans-serif;
+  display: inline-block;
+  position: relative;
+  padding: 14px 40px;
+  margin-top: 20px;
+  color: #4a3e6dbc;
+  background-color: #0CFFE1;
+  box-shadow: 10px 10px 6px #4a3e6db6;
+  border-radius: 10px;
+  font-size: 30px;
+  font-weight: 500px;
+  letter-spacing: 3px;
+  text-transform: capitalize;
+  text-decoration: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+#playbtn span {
+  display: block;
+  width: 0px;
+  height: 0px;
+  background-color: #FF217C;
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease 0s, height 0.6s ease 0s;
+  z-index: -1;
+}
+
+#playbtn:hover span {
+  width: 562px;
+  height: 562px;
+}
+
 </style>

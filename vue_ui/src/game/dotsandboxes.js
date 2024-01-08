@@ -1,7 +1,7 @@
 import $ from 'jquery'
 
 export const dotsandboxes = {
-  data: function() {
+  data: function () {
     return {
       websocket: new WebSocket("ws://localhost:9000/websocket"),
       rowSize: 0,
@@ -23,7 +23,7 @@ export const dotsandboxes = {
       this.websocket.onopen = () => console.log("Successfully connected to WebSocket")
       this.websocket.onclose = () => console.log("Connection with WebSocket closed!")
       this.websocket.onerror = (error) => console.log("Error in WebSocket occurred: " + error)
-      this.websocket.onmessage = msg => { if (typeof msg.data === "string") { this.updateBoard() }}
+      this.websocket.onmessage = msg => { if (typeof msg.data === "string") { this.updateBoard() } }
     },
     matchingValue(direction, row, col) {
       return !!((direction === 'hor' ? this.rows : this.cols)

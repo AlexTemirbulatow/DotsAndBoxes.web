@@ -95,4 +95,229 @@ export default {
 </script>
 
 
-<style></style>
+<style scoped>
+
+#board {
+  width: 562px;
+  height: 462px;
+  background-color: rgba(158, 145, 133, 0.956);
+  border: 6px solid #5b554f;
+  border-radius: 10px;
+  margin: 0 auto;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.preBorderHor {
+  background: none;
+  width: 120px;
+  height: 30px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 -25px;
+  z-index: 0;
+}
+
+.preBorderHor:hover {
+  background-color: #5959594a;
+  box-shadow: 2px 7px 0px #5b5b5b;
+  width: 120px;
+  height: 30px;
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 -25px;
+}
+
+.preBorderHor:hover .preLineHor {
+  display: none;
+}
+
+.preLineHor {
+  background-color: #4c4c4c66;
+  width: 70px;
+  height: 4px;
+  justify-content: center;
+  align-items: center;
+}
+
+.takenLineHor {
+  background-color: #b5b5b5;
+  box-shadow: 2px 7px 0px #5b5b5b;
+  width: 120px;
+  height: 30px;
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 -25px;
+  z-index: 2;
+}
+
+.preBorderVer {
+  background: none;
+  width: 30px;
+  height: 120px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: -25px 0;
+  z-index: 0;
+}
+
+.preBorderVerHovered {
+  background-color: #5959594a;
+  box-shadow: 7px 0px 0px #5b5b5b;
+  width: 30px;
+  height: 120px;
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: -25px 0;
+
+  .preLineVer {
+    display: none;
+  }
+}
+
+.preLineVer {
+  background-color: #4c4c4c66;
+  width: 4px;
+  height: 70px;
+  justify-content: center;
+  align-items: center;
+}
+
+.preBorderVer:hover {
+  background-color: #5959594a;
+  box-shadow: 7px 0px 0px #5b5b5b;
+  width: 30px;
+  height: 120px;
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: -25px 0;
+}
+
+.preBorderVer:hover .preLineVer {
+  display: none;
+}
+
+.takenLineVer {
+  background-color: #b5b5b5;
+  box-shadow: 7px 0px 0px #5b5b5b;
+  width: 30px;
+  height: 120px;
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: -25px 0;
+  z-index: 2;
+}
+
+.verline {
+  background-color: #4c4c4c66;
+  width: 4px;
+  height: 70px;
+  justify-content: center;
+  align-items: center;
+}
+
+.playerTurn {
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+.playerTurnImg {
+  background: none;
+  font-family: "Comic Sans MS", cursive;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: right;
+  grid-gap: 15px;
+}
+
+.playerWonImg {
+  background: none;
+  font-family: "Comic Sans MS", cursive;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: right;
+  grid-gap: 15px;
+}
+
+.square- {
+  background: none;
+  width: 70px;
+  height: 70px;
+}
+
+.squareB {
+  background-color: #69a3bc;
+  width: 70px;
+  height: 70px;
+}
+
+.squareR {
+  background-color: #bc6969;
+  width: 70px;
+  height: 70px;
+}
+
+.squareG {
+  background-color: #73bc69;
+  width: 70px;
+  height: 70px;
+}
+
+.squareY {
+  background-color: #bbbc69;
+  width: 70px;
+  height: 70px;
+}
+
+#scoreboard {
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 150px;
+}
+
+.player {
+  background-color: rgba(101, 101, 101, 0.274);
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #d4d4d415;
+  border-left: 0px;
+  padding-right: 15px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  margin: 0 40px;
+}
+
+.player img {
+  margin-right: 10px;
+  height: 50px;
+}
+
+</style>
