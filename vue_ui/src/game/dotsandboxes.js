@@ -42,6 +42,18 @@ export const dotsandboxes = {
       console.log(`move: ${index}${x}${y}`)
       $.get(`http://localhost:9000/game/move/${index}${x}${y}`, () => { this.updateBoard() })
     },
+    undoredo(type) {
+      console.log(`move: ${type}`)
+      $.get(`http://localhost:9000/game/move/${type}`, () => {
+        this.updateBoard()
+      })
+    },
+    saveload(type) {
+      console.log(type === "load" ? "loading last gamestate" : "saving current gamestate")
+      $.get(`http://localhost:9000/game/${type}`, () => {
+        this.updateBoard()
+      })
+    },
     updateBoard() {
       $.get("http://localhost:9000/game/json", data => {
         const statusMapping = { "-": "square-", "B": "squareB", "R": "squareR", "G": "squareG", "Y": "squareY" }

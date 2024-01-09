@@ -2,10 +2,10 @@
   <q-layout view="hHh lpR fFf">
     <q-header elevated class="text-white" style="background-color: #483c6c;">
       <q-tabs align="left" style="padding-left: 50px;">
-        <img src="images/0_Logo.png" alt="Logo" style="width: 4%;">
+        <img src="images/0_Logo.png" alt="Logo" style="width: 50px;">
         <h5 style="margin-left: 10px;">Dots And Boxes</h5>
-        <q-route-tab to="/" label="home" style="margin-left: 30%;" />
-        <q-route-tab to="game" label="game" />
+        <q-route-tab to="/" label="home" class="tabs" style="margin-left: 30%;" />
+        <q-route-tab to="game" label="game" class="tabs" />
       </q-tabs>
     </q-header>
     <q-page-container>
@@ -57,6 +57,11 @@ h4,
 h5 {
   font-family: "Lilita One", sans-serif;
   font-size: 5px;
+  color: #d8d8d8;
+}
+
+.tabs {
+  font-family: "Lilita One", sans-serif;
   color: #d8d8d8;
 }
 

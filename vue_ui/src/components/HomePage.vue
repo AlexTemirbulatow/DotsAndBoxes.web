@@ -11,10 +11,9 @@
         Lucas, in the 19th century. Mr. Lucas called it La Pipopipette.
       </p>
     </div>
-    <div id="playbtn" @click="displayGame" type="button">
+    <q-btn id="playbtn" @click="displayGame">
       Play Now
-      <span></span>
-    </div>
+    </q-btn>
   </q-page>
 
 
@@ -89,10 +88,9 @@
 
 <script>
 export default {
-  emits: ['display-game'],
   methods: {
     displayGame() {
-      this.$emit('display-game')
+      this.$router.push('/game')
     }
   }
 }

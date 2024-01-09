@@ -3,13 +3,10 @@
 </template>
 
 <script>
-export default {
-}
+export default { }
 </script>
 
-
 <style>
-
 .dot {
   background-color: #ededed;
   border: 2px solid #f51818;
@@ -22,5 +19,4 @@ export default {
   align-items: center;
   z-index: 3;
 }
-
 </style>

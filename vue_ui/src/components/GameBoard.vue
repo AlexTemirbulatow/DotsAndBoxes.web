@@ -1,5 +1,6 @@
 <template>
   <q-page>
+    <game-operations />
     <div class="containerh">
       <template v-if="!gameEnded">
         <div class="playerTurnImg" id="turn">
@@ -26,7 +27,7 @@
     <div id="board">
       <template v-for="row in colSize" :key="row">
         <template v-for="col in rowSize" :key="col">
-          <game-dot/>
+          <game-dot />
           <div v-if="matchingValue('hor', (row - 1), (col - 1)) === true" class="takenLineHor"
             :id="'takenHor' + (row - 1) + (col - 1)">
           </div>
@@ -35,7 +36,7 @@
             <div class="preLineHor"></div>
           </button>
         </template>
-        <game-dot/>
+        <game-dot />
 
         <template v-for="col in (rowSize + 1)" :key="col">
           <div v-if="matchingValue('ver', (row - 1), (col - 1)) === true" class="takenLineVer"
@@ -52,7 +53,7 @@
       </template>
 
       <template v-for="col in rowSize" :key="col">
-        <game-dot/>
+        <game-dot />
         <div v-if="matchingValue('hor', colSize, (col - 1)) === true" class="takenLineHor"
           :id="'takenHor' + (row - 1) + (col - 1)">
         </div>
@@ -60,7 +61,7 @@
           <div class="preLineHor"></div>
         </button>
       </template>
-      <game-dot/>
+      <game-dot />
     </div>
 
     <div class="container3 mb-5">
@@ -79,12 +80,14 @@
 
 <script>
 import { dotsandboxes } from '@/game/dotsandboxes'
-import GameDot from '@/components/GameDot.vue';
+import GameDot from '@/components/GameDot.vue'
+import GameOperations from '@/components/GameOperations.vue'
 
 export default {
   name: 'GameBoard',
   components: {
-    'game-dot': GameDot
+    'game-dot': GameDot,
+    'game-operations': GameOperations
   },
   mixins: [dotsandboxes],
   created() {
@@ -95,8 +98,7 @@ export default {
 </script>
 
 
-<style scoped>
-
+<style>
 #board {
   width: 562px;
   height: 462px;
@@ -319,5 +321,4 @@ export default {
   margin-right: 10px;
   height: 50px;
 }
-
 </style>
