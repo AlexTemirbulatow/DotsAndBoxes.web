@@ -38,8 +38,8 @@ metals.sbt
 .tasty
 
 # fileIO
-*.xml
-*.json
+field.xml
+field.json
 
 # other
 /null/
