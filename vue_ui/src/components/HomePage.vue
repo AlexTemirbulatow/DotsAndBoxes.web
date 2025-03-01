@@ -59,7 +59,7 @@
   <section id="github" style="padding-top: 4rem; margin-bottom: 100px;">
     <div style="max-width: 1300px; margin: 0 auto;">
       <div style="display: flex; justify-content: center;">
-        <h3 style="text-align: center;">How To Play</h3>
+        <h3 style="text-align: center;">Open Source</h3>
       </div>
       <div style="display: flex; justify-content: center; text-align: start;">
         <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
