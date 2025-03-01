@@ -3,6 +3,10 @@
 Further development of the game Dots and Boxes as a web application.
 The application consists of a Vue.js frontend and a Scala Play backend.
 
+<img src="https://github.com/AlexTemirbulatow/de.htwg.wa.DotsAndBoxes/blob/main/.github/resources/homepage.png" />
+
+<img src="https://github.com/AlexTemirbulatow/de.htwg.wa.DotsAndBoxes/blob/main/.github/resources/gameboard.png" />
+
 ## Requirements
 - Node.js and npm
 - sbt (Simple Build Tool)
