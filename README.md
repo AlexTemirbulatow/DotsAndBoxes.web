@@ -7,6 +7,8 @@ The application consists of a Vue.js frontend and a Scala Play backend.
 
 <img src="https://github.com/AlexTemirbulatow/de.htwg.wa.DotsAndBoxes/blob/main/.github/resources/gameboard.png" />
 
+Click here to view the <a href="https://docs.google.com/presentation/d/1YrpwBn4b6vXIt88sh1MSPNJsU7vgnV_iSH1vH-02SCw/edit#slide=id.p">project presentation</a>
+
 ## Requirements
 - Node.js and npm
 - sbt (Simple Build Tool)
@@ -37,7 +39,7 @@ Then start the frontend:
 npm run serve
 ```
 
-Once the frontend started, it should be accessable at `http://localhost:8080`
+Once the frontend has started, it should be accessible at `http://localhost:8080`
 
 ## LICENSE
 This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) License. See the [LICENSE](./LICENSE) file for more details.
