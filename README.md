@@ -24,7 +24,7 @@ sbt run
 
 #### 2. Frontend (Vue.js)
 
-Navigate to the `vue_ui` directory and install the dependencies:
+Navigate to the `/vue_ui` directory and install the dependencies:
 
 ```bash
 cd vue_ui
